@@ -1,7 +1,7 @@
 {
     "name": "@eliware/common",
     "type": "module",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "An ESM/Jest/Node-friendly utility for resolving file and directory paths, logging, error handling, and signal handling in both CommonJS and ESM environments.",
     "main": "index.cjs",
     "module": "index.mjs",
@@ -56,7 +56,7 @@
         ]
     },
     "dependencies": {
-        "@eliware/errors": "^1.1.1",
+        "@eliware/errors": "^1.1.2",
         "@eliware/log": "^1.1.1",
         "@eliware/path": "^1.1.1",
         "@eliware/signals": "^1.1.1"
