@@ -1,16 +1,37 @@
-// Example usage of the common package in ESM
-import { log, path, pathUrl, registerHandlers, registerSignals } from '@eliware/common';
+import {
+  fs,
+  log,
+  path,
+  pathUrl,
+  resolvePath,
+  registerHandlers,
+  registerSignals,
+} from '@eliware/common';
 
-log.info('This is an info log from @eliware/log');
+const configPath = path(import.meta, '.env');
+const configUrl = pathUrl(import.meta, '.env');
+const configDirectory = resolvePath(import.meta);
 
-const { removeHandlers } = registerHandlers();
-log.info('Registered error handlers.');
+log.info('Common package example', {
+  configPath,
+  configUrl,
+  configDirectory,
+  files: fs.readdirSync(configDirectory),
+});
 
-const envFile = path(import.meta, '.env');
-log.info(`path to env file: ${envFile}`);
+const errorHandlers = registerHandlers({
+  events: ['uncaughtException', 'unhandledRejection'],
+});
 
-const envFileUrl = pathUrl(import.meta, '.env');
-log.info(`pathUrl to env file: ${envFileUrl}`);
+const signals = registerSignals({
+  shutdownHook: async signal => {
+    log.info(`Cleaning up after ${signal}`);
+    errorHandlers.removeHandlers();
+  },
+});
 
-const { shutdown } = registerSignals();
-log.info('Registered signal handlers.');
+log.info('Handlers registered. Send SIGTERM or SIGINT to shut down gracefully.');
+
+// Keep the process alive for this demonstration; real applications usually
+// stay alive because they have a server, worker, or other active resource.
+void signals;

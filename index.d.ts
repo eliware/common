@@ -1,15 +1,32 @@
 import * as fs from 'fs';
-import { log } from '@eliware/log';
-import { path, pathUrl, getCurrentDirname, getCurrentFilename } from '@eliware/path';
-import { registerHandlers } from '@eliware/errors';
-import { registerSignals, RegisterSignalsOptions } from '@eliware/signals';
+import type logger from '@eliware/log';
+import type {
+  RegisterHandlersOptions,
+  RegisteredHandlers,
+} from '@eliware/errors';
+import type {
+  RegisterSignalsOptions,
+  SignalsRegistration,
+} from '@eliware/signals';
 
 export { fs };
-export { log };
-export { path };
-export { pathUrl };
-export { getCurrentDirname };
-export { getCurrentFilename };
-export { registerHandlers };
-export { registerSignals };
-export type { RegisterSignalsOptions };
+export { createLogger, default as log, safeSerialize } from '@eliware/log';
+export {
+  path,
+  pathUrl,
+  getCurrentDirname,
+  getCurrentFilename,
+  resolvePath,
+  relativePath,
+  fileUrlToPath,
+} from '@eliware/path';
+export { default as registerHandlers } from '@eliware/errors';
+export { default as registerSignals } from '@eliware/signals';
+export type {
+  RegisterHandlersOptions,
+  RegisteredHandlers,
+  RegisterSignalsOptions,
+  SignalsRegistration,
+};
+
+export type Logger = typeof logger;
