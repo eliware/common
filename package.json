@@ -1,7 +1,7 @@
 {
     "name": "@eliware/common",
     "type": "module",
-    "version": "1.1.6",
+    "version": "1.1.7",
     "description": "An ESM/Jest/Node-friendly utility for resolving file and directory paths, logging, error handling, and signal handling in both ESM environments.",
     "types": "index.d.ts",
     "files": [
