@@ -13,7 +13,7 @@ import {
   fileUrlToPath,
   registerHandlers,
   registerSignals,
-} from './index.mjs';
+} from '../index.mjs';
 
 const silentLogger = () => ({ debug: jest.fn(), info: jest.fn(), warn: jest.fn(), error: jest.fn() });
 const fakeProcess = () => ({ on: jest.fn(), once: jest.fn(), off: jest.fn(), exit: jest.fn() });

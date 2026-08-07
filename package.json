@@ -3,14 +3,14 @@
     "type": "module",
     "version": "1.1.6",
     "description": "An ESM/Jest/Node-friendly utility for resolving file and directory paths, logging, error handling, and signal handling in both ESM environments.",
-    "module": "index.mjs",
     "types": "index.d.ts",
     "files": [
         "index.mjs",
+        "src",
         "index.d.ts",
         "README.md",
         "LICENSE",
-        "src"
+        "examples"
     ],
     "exports": {
         ".": {
@@ -20,8 +20,10 @@
     },
     "scripts": {
         "test": "npx --node-options=\"--experimental-vm-modules --no-warnings\" jest --detectOpenHandles --silent --coverage --coverageProvider=v8",
-        "test:gaps": "npm test -- --coverageReporters=text 2>&1 | awk -F'|' 'NF >= 6 && $2 ~ /[0-9]/ && !($2 ~ /^[[:space:]]*100[[:space:]]*$/ && $3 ~ /^[[:space:]]*100[[:space:]]*$/ && $4 ~ /^[[:space:]]*100[[:space:]]*$/ && $5 ~ /^[[:space:]]*100[[:space:]]*$/)'",
-        "lint": "npx oxlint ."
+        "test:gaps": "npm test 2>&1 | grep '|' | grep -vF '|     100 |      100 |     100 |     100 |'",
+        "lint": "npx oxlint .",
+        "typecheck": "tsc --project tsconfig.json",
+        "pack": "npm pack --dry-run"
     },
     "repository": {
         "type": "git",
@@ -44,7 +46,8 @@
     },
     "homepage": "https://github.com/eliware/common#readme",
     "devDependencies": {
-        "jest": "^30.4.2"
+        "jest": "^30.4.2",
+        "typescript": "^7.0.2"
     },
     "jest": {
         "testEnvironment": "node",
@@ -54,9 +57,9 @@
         ]
     },
     "dependencies": {
-        "@eliware/errors": "^1.1.7",
-        "@eliware/log": "^1.1.10",
-        "@eliware/path": "^1.1.7",
-        "@eliware/signals": "^1.1.5"
+        "@eliware/errors": "^1.1.8",
+        "@eliware/log": "^1.1.11",
+        "@eliware/path": "^1.1.8",
+        "@eliware/signals": "^1.1.6"
     }
 }
