@@ -1,5 +1,10 @@
 # Release notes
 
+## 1.1.6 — August 7, 2026
+
+- Updated `@eliware/errors`, `@eliware/log`, `@eliware/path`, and `@eliware/signals` to current releases.
+- Standardized Jest coverage on the V8 provider for accurate ESM coverage reporting.
+
 ## 1.1.5 — August 6, 2026
 
 ### Changed
