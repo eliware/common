@@ -1,5 +1,11 @@
 # Release notes
 
+## 1.1.7 — 2026-08-07
+
+- Standardized package layout, validation scripts, TypeScript checking, CI, and package contents.
+- Updated internal dependencies to the latest released Eliware versions.
+- Expanded troubleshooting, development, and security documentation.
+
 ## 1.1.6 — August 7, 2026
 
 - Updated `@eliware/errors`, `@eliware/log`, `@eliware/path`, and `@eliware/signals` to current releases.

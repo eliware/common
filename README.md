@@ -2,6 +2,11 @@
 
 A small ESM convenience package that provides one stable import surface for Eliware's shared Node.js utilities.
 
+## Requirements
+
+- Node.js 26 or newer
+- Published Eliware dependency packages matching the versions in `package.json`
+
 ## Installation
 
 ```bash
@@ -64,15 +69,26 @@ const options: RegisterSignalsOptions = { exit: false };
 const registration = registerSignals(options);
 ```
 
+## Errors / Troubleshooting
+
+This package is a compatibility layer and delegates behavior to its underlying packages. For logging, path, error-handler, or signal-handler failures, consult the corresponding dependency documentation. Keep dependency versions synchronized with the public exports and declarations.
+
 ## Development
 
 ```bash
 npm install
 npm test
 npm run lint
+npm run test:gaps
+npm run typecheck
+npm run pack
 ```
 
 This package is a re-export/compatibility layer. Its tests verify the public export contract and representative delegation to the underlying packages; implementation behavior is tested in those dependency packages.
+
+## Security
+
+Do not log secrets or include credentials or machine-specific paths in examples. Review delegated package behavior and keep dependencies updated before publishing.
 
 ## Links
 
