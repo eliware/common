@@ -72,7 +72,7 @@ test('re-exports signal handlers with hooks and cleanup', async () => {
   const logger = silentLogger();
   const hook = jest.fn();
   const registration = registerSignals({ processObj, log: logger, signals: ['SIGTERM'], shutdownHook: hook, exit: false });
-  expect(processObj.on).toHaveBeenCalledTimes(3);
+  expect(processObj.on).toHaveBeenCalledTimes(2);
   expect(registration.getShuttingDown()).toBe(false);
   await registration.shutdown('manual');
   expect(registration.getShuttingDown()).toBe(true);
