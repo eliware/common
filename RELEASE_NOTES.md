@@ -1,5 +1,12 @@
 # Release notes
 
+## 1.1.8 — 2026-08-10
+
+- Updated `@eliware/errors` to 1.1.9, `@eliware/log` to 1.1.12, and `@eliware/signals` to 1.1.7.
+- Added the `safeSerialize` TypeScript declaration to match the runtime export.
+- Updated signal handler contract coverage for the current upstream listener behavior.
+
+
 ## 1.1.7 — 2026-08-07
 
 - Standardized package layout, validation scripts, TypeScript checking, CI, and package contents.
