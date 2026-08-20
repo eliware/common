@@ -48,3 +48,7 @@ Keep `README.md` and `example.mjs` aligned with the current exports and option n
 ## Release rules
 
 Do not bump the version, edit release notes, tag, or publish unless explicitly requested. Before a release, run tests, lint, and preferably `npm pack --dry-run`.
+- Do not over-engineer simple tasks.
+- Do not guess when confused.
+- Do not make random, pointless changes.
+- Check your own work before saying you're done.
