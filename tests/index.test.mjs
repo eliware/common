@@ -1,4 +1,5 @@
 import { jest } from '@jest/globals';
+import { pathToFileURL } from 'node:url';
 import {
   fs,
   log,
@@ -42,7 +43,8 @@ test('re-exports fs and path helpers without changing behavior', () => {
   expect(getCurrentDirname(import.meta)).toBeTruthy();
   expect(resolvePath(import.meta, 'file')).toContain('file');
   expect(relativePath(import.meta, 'file')).toBe('file');
-  expect(fileUrlToPath(new URL('file:///tmp/example.txt'))).toBe('/tmp/example.txt');
+  const filePath = path(import.meta, 'example.txt');
+  expect(fileUrlToPath(pathToFileURL(filePath))).toBe(filePath);
 });
 
 test('re-exports logger factory and serializer behavior', () => {
