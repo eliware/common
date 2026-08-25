@@ -9,8 +9,8 @@
 - `index.mjs` — package public entry point.
 - `index.d.ts` — public TypeScript declarations.
 - `src/` — focused re-export modules for filesystem, logging, paths, errors, and signals.
-- `index.test.mjs` — public export/contract tests.
-- `example.mjs` — basic usage example.
+- `tests/index.test.mjs` — public export/contract tests.
+- `examples/example.mjs` — basic usage example.
 
 ## Development commands
 
