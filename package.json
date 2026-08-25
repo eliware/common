@@ -57,9 +57,9 @@
         ]
     },
     "dependencies": {
-        "@eliware/errors": "^1.1.9",
-        "@eliware/log": "^1.1.12",
-        "@eliware/path": "^1.1.8",
-        "@eliware/signals": "^1.1.7"
+        "@eliware/errors": "^2.0.0",
+        "@eliware/log": "^2.0.0",
+        "@eliware/path": "^2.0.0",
+        "@eliware/signals": "^2.0.0"
     }
 }
