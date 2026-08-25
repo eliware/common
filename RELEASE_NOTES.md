@@ -1,12 +1,13 @@
 # Release notes
 
-## 2.0.0 — Unreleased
+## 2.0.0 — 2026-08-25
 
 - Modernized the package for the shared Eliware conventions and Node.js `>=26`.
 - Replaced direct Jest tooling with `@eliware/test`, including enforced 100×4 coverage and shared linting.
 - Updated CI for Ubuntu and Windows validation on `main`, pull requests, and `v*` tags, with gated publishing.
 - Updated package metadata, documentation, and dependency auditing.
-- This is an unreleased modernization; the package version remains `1.1.8` until authorized release.
+- Breaking: Node.js `>=26` is now required.
+- Breaking: direct Jest and Oxlint project tooling was replaced by the shared `@eliware/test` harness.
 
 ## 1.1.8 — 2026-08-10
 
