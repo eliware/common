@@ -18,6 +18,9 @@
 npm install
 npm test
 npm run lint
+npm run typecheck
+npm audit --omit=dev --audit-level=moderate
+npm run pack
 ```
 
 Tests should pass and lint should report zero warnings or errors before committing.
@@ -33,6 +36,10 @@ Test the package contract rather than duplicating dependency implementation test
 - TypeScript declarations when declaration tooling is available.
 
 Coverage may be zero for re-export-only modules because they contain no business logic. Do not add Istanbul ignore directives merely to manufacture a coverage percentage.
+
+The shared `@eliware/test` package provides the test and lint harness. The
+foundational runtime packages remain intentional direct dependencies because
+this package is their compatibility-layer entry point.
 
 ## API compatibility
 

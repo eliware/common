@@ -2,7 +2,7 @@
     "name": "@eliware/common",
     "type": "module",
     "version": "1.1.8",
-    "description": "An ESM/Jest/Node-friendly utility for resolving file and directory paths, logging, error handling, and signal handling in both ESM environments.",
+    "description": "An ESM and Node.js compatibility layer for shared Eliware filesystem, path, logging, error, and signal APIs.",
     "types": "index.d.ts",
     "files": [
         "index.mjs",
@@ -19,9 +19,8 @@
         }
     },
     "scripts": {
-        "test": "npx --node-options=\"--experimental-vm-modules --no-warnings\" jest --detectOpenHandles --silent --coverage --coverageProvider=v8",
-        "test:gaps": "npm test 2>&1 | grep '|' | grep -vF '|     100 |      100 |     100 |     100 |'",
-        "lint": "npx oxlint .",
+        "test": "eliware-test",
+        "lint": "eliware-test --lint",
         "typecheck": "tsc --project tsconfig.json",
         "pack": "npm pack --dry-run"
     },
@@ -46,20 +45,19 @@
     },
     "homepage": "https://github.com/eliware/common#readme",
     "devDependencies": {
-        "jest": "^30.4.2",
+        "@eliware/test": "^2.0.0",
         "typescript": "^7.0.2"
-    },
-    "jest": {
-        "testEnvironment": "node",
-        "testMatch": [
-            "**/?(*.)+(spec|test).[jt]s?(x)",
-            "**/?(*.)+(spec|test).mjs"
-        ]
     },
     "dependencies": {
         "@eliware/errors": "^2.0.0",
         "@eliware/log": "^2.0.0",
         "@eliware/path": "^2.0.0",
         "@eliware/signals": "^2.0.0"
+    },
+    "engines": {
+        "node": ">=26"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }

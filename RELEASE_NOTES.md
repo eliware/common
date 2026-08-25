@@ -1,5 +1,13 @@
 # Release notes
 
+## 2.0.0 — Unreleased
+
+- Modernized the package for the shared Eliware conventions and Node.js `>=26`.
+- Replaced direct Jest tooling with `@eliware/test`, including enforced 100×4 coverage and shared linting.
+- Updated CI for Ubuntu and Windows validation on `main`, pull requests, and `v*` tags, with gated publishing.
+- Updated package metadata, documentation, and dependency auditing.
+- This is an unreleased modernization; the package version remains `1.1.8` until authorized release.
+
 ## 1.1.8 — 2026-08-10
 
 - Updated `@eliware/errors` to 1.1.9, `@eliware/log` to 1.1.12, and `@eliware/signals` to 1.1.7.
