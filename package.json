@@ -2,7 +2,7 @@
     "name": "@eliware/common",
     "type": "module",
     "version": "2.0.0",
-    "description": "An ESM and Node.js compatibility layer for shared Eliware filesystem, path, logging, error, and signal APIs.",
+    "description": "A shared ESM compatibility package for Eliware filesystem, path, logging, error, and signal APIs.",
     "types": "index.d.ts",
     "files": [
         "index.mjs",
@@ -32,6 +32,8 @@
     "keywords": [
         "nodejs",
         "common utilities",
+        "compatibility",
+        "filesystem",
         "logging",
         "path utilities",
         "error handling",

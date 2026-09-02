@@ -1,11 +1,37 @@
-# @eliware/common
+# [![eliware.org](https://eliware.org/logos/brand.png)](https://discord.gg/M6aTR9eTwN)
+
+## @eliware/common [![npm version](https://img.shields.io/npm/v/@eliware/common.svg)](https://www.npmjs.com/package/@eliware/common)[![license](https://img.shields.io/github/license/eliware/common.svg)](LICENSE)[![build status](https://github.com/eliware/common/actions/workflows/nodejs.yml/badge.svg)](https://github.com/eliware/common/actions)
 
 A small native ESM compatibility package that provides one stable import surface for Eliware's shared Node.js utilities.
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Exports](#exports)
+- [Usage](#usage)
+- [TypeScript](#typescript)
+- [Configuration and Operations](#configuration-and-operations)
+- [Errors / Troubleshooting](#errors--troubleshooting)
+- [Development](#development)
+- [Security](#security)
+- [Support](#support)
+- [License](#license)
+- [Links](#links)
+
+## Features
+
+- Stable ESM import surface for shared Eliware utilities.
+- Re-exports filesystem, path, logging, error, and signal APIs.
+- Keeps consuming applications on consistent shared dependency versions.
+- Includes TypeScript declarations and deterministic delegation tests.
 
 ## Requirements
 
 - Node.js 26 or newer
-- Node.js `>=26`
 - Published Eliware dependency packages matching the versions in `package.json`
 
 ## Installation
@@ -70,7 +96,7 @@ const options: RegisterSignalsOptions = { exit: false };
 const registration = registerSignals(options);
 ```
 
-## Configuration and operations
+## Configuration and Operations
 
 The package has no global configuration and performs no work at import time. Configure the delegated logger, error handlers, and signal handlers through their options. Applications should validate their own configuration before opening files or external connections and should make shutdown cleanup idempotent.
 
@@ -95,12 +121,22 @@ This package is a re-export/compatibility layer. Its tests verify the public exp
 
 Do not log secrets or include credentials or machine-specific paths in examples. Review delegated package behavior and keep dependencies updated before publishing.
 
+## Support
+
+For help, questions, or to chat with the author and community, visit:
+
+[![Discord](https://eliware.org/logos/discord_96.png)](https://discord.gg/M6aTR9eTwN)[![eliware.org](https://eliware.org/logos/eliware_96.png)](https://discord.gg/M6aTR9eTwN)
+
+**[eliware.org on Discord](https://discord.gg/M6aTR9eTwN)**
+
 ## Links
 
-- [GitHub](https://github.com/eliware/common)
+- [Home Page](https://eliware.org)
+- [GitHub Repo](https://github.com/eliware/common)
+- [GitHub Org](https://github.com/eliware)
 - [npm](https://www.npmjs.com/package/@eliware/common)
-- [eliware Discord](https://discord.gg/M6aTR9eTwN)
+- [Discord](https://discord.gg/M6aTR9eTwN)
 
 ## License
 
-[MIT](LICENSE)
+[MIT © Eliware](LICENSE)
