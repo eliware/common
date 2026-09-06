@@ -1,5 +1,7 @@
 # [![eliware.org](https://eliware.org/logos/brand.png)](https://discord.gg/M6aTR9eTwN)
 
+Documentation: [docs](docs/README.md) · [specifications](specs/README.md) · [examples](examples/README.md)
+
 ## @eliware/common [![npm version](https://img.shields.io/npm/v/@eliware/common.svg)](https://www.npmjs.com/package/@eliware/common)[![license](https://img.shields.io/github/license/eliware/common.svg)](LICENSE)[![build status](https://github.com/eliware/common/actions/workflows/nodejs.yml/badge.svg)](https://github.com/eliware/common/actions)
 
 A small native ESM compatibility package that provides one stable import surface for Eliware's shared Node.js utilities.
