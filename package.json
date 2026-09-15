@@ -48,7 +48,7 @@
     },
     "homepage": "https://github.com/eliware/common#readme",
     "devDependencies": {
-        "@eliware/test": "^2.0.0",
+        "@eliware/test": "^4.0.0",
         "typescript": "^7.0.2"
     },
     "dependencies": {
