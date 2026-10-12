@@ -1,4 +1,4 @@
-import registerHandlers from '@eliware/errors';
+import registerHandlers from "@eliware/errors";
 
 export { registerHandlers };
 export default registerHandlers;

@@ -1,0 +1,15 @@
+version: "12.0"
+description: Defines requirements for the Eliware common package.
+directives:
+  - id: E-199.0
+    dos:
+      - Export the shared file system, path, logging, error, and signal APIs from the package entry point.
+      - Keep the package entry point and declaration file under src/.
+      - Mirror every source module with one test module under tests/.
+      - Use the shared Eliware packages for delegated runtime behavior.
+      - Run repository validation through eliware-test.
+      - Keep published files limited to package content and user documentation.
+    donts:
+      - Do not add global configuration or import-time work.
+      - Do not duplicate behavior owned by shared Eliware packages.
+      - Do not publish or deploy without the required approval.

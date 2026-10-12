@@ -1,60 +1,46 @@
 # [![eliware.org](https://eliware.org/logos/brand.png)](https://discord.gg/M6aTR9eTwN)
 
-Documentation: [docs](docs/README.md) · [specifications](specs/README.md) · [examples](examples/README.md)
+## @eliware/common [![npm](https://img.shields.io/npm/v/@eliware/common)](https://www.npmjs.com/package/@eliware/common) [![License](https://img.shields.io/github/license/eliware/common)](https://github.com/eliware/common/blob/main/LICENSE) [![CI](https://github.com/eliware/common/actions/workflows/ci.yaml/badge.svg)](https://github.com/eliware/common/actions/workflows/ci.yaml)
 
-## @eliware/common [![npm version](https://img.shields.io/npm/v/@eliware/common.svg)](https://www.npmjs.com/package/@eliware/common)[![license](https://img.shields.io/github/license/eliware/common.svg)](LICENSE)[![build status](https://github.com/eliware/common/actions/workflows/nodejs.yml/badge.svg)](https://github.com/eliware/common/actions)
-
-A small native ESM compatibility package that provides one stable import surface for Eliware's shared Node.js utilities.
-
----
+A shared ESM compatibility package for Eliware filesystem, path, logging, error, and signal APIs.
 
 ## Table of Contents
 
 - [Features](#features)
 - [Requirements](#requirements)
-- [Installation](#installation)
-- [Exports](#exports)
+- [Setup](#setup)
 - [Usage](#usage)
-- [TypeScript](#typescript)
-- [Configuration and Operations](#configuration-and-operations)
-- [Errors / Troubleshooting](#errors--troubleshooting)
 - [Development](#development)
+- [Testing](#testing)
+- [Troubleshooting](#troubleshooting)
 - [Security](#security)
+- [API](#api)
+- [Packaging](#packaging)
+- [Examples](#examples)
 - [Support](#support)
-- [License](#license)
 - [Links](#links)
+- [License](#license)
 
 ## Features
 
-- Stable ESM import surface for shared Eliware utilities.
-- Re-exports filesystem, path, logging, error, and signal APIs.
-- Keeps consuming applications on consistent shared dependency versions.
-- Includes TypeScript declarations and deterministic delegation tests.
+- Import shared Eliware APIs from one package.
+- Use file system, path, log, error, and signal APIs.
+- Use included TypeScript declarations.
 
 ## Requirements
 
-- Node.js 26 or newer
-- Published Eliware dependency packages matching the versions in `package.json`
+- Use Node.js 26 or newer.
+- Install the package from npm.
 
-## Installation
+## Setup
 
 ```bash
 npm install @eliware/common
 ```
 
-## Exports
-
-`@eliware/common` re-exports the current public APIs from:
-
-- `@eliware/log`: `log`, `createLogger`, `safeSerialize`
-- `@eliware/path`: `path`, `pathUrl`, `getCurrentDirname`, `getCurrentFilename`, `resolvePath`, `relativePath`, `fileUrlToPath`
-- `@eliware/errors`: `registerHandlers`
-- `@eliware/signals`: `registerSignals`
-- Node.js `fs`
-
-The implementation is split into focused modules under [`src/`](src/) while the package root remains the public entry point.
-
 ## Usage
+
+Import the public APIs from `@eliware/common`.
 
 ```js
 import {
@@ -65,63 +51,54 @@ import {
   resolvePath,
   registerHandlers,
   registerSignals,
-} from '@eliware/common';
+} from "@eliware/common";
 
-const configPath = path(import.meta, '.env');
-const configUrl = pathUrl(import.meta, '.env');
-const absolutePath = resolvePath(import.meta, 'config');
+const configPath = path(import.meta, ".env");
+const configUrl = pathUrl(import.meta, ".env");
+const absolutePath = resolvePath(import.meta, "config");
 
-log.info('Application starting', { configPath, configUrl, absolutePath });
-log.info(`Files: ${fs.readdirSync(path(import.meta)).join(', ')}`);
+log.info("Application starting", { configPath, configUrl, absolutePath });
+log.info(`Files: ${fs.readdirSync(path(import.meta)).join(", ")}`);
 
-const errors = registerHandlers({ events: ['uncaughtException', 'unhandledRejection'] });
+const errors = registerHandlers({ events: ["uncaughtException", "unhandledRejection"] });
 const signals = registerSignals({ shutdownHook: async () => errors.removeHandlers() });
 
-process.once('SIGTERM', () => void signals.shutdown('SIGTERM'));
+process.once("SIGTERM", () => void signals.shutdown("SIGTERM"));
 ```
 
-## TypeScript
-
-Type declarations are included and expose the dependency option and return types:
-
-```ts
-import {
-  createLogger,
-  getCurrentDirname,
-  registerSignals,
-  type RegisterSignalsOptions,
-} from '@eliware/common';
-
-const logger = createLogger({ format: 'json' });
-const directory = getCurrentDirname(import.meta);
-const options: RegisterSignalsOptions = { exit: false };
-const registration = registerSignals(options);
-```
-
-## Configuration and Operations
-
-The package has no global configuration and performs no work at import time. Configure the delegated logger, error handlers, and signal handlers through their options. Applications should validate their own configuration before opening files or external connections and should make shutdown cleanup idempotent.
-
-## Errors / Troubleshooting
-
-This package is a compatibility layer and delegates behavior to its underlying packages. For logging, path, error-handler, or signal-handler failures, consult the corresponding dependency documentation. Keep dependency versions synchronized with the public exports and declarations.
+Read the [documentation index](docs/README.md), [usage guide](docs/usage.md), [troubleshooting guide](docs/troubleshooting.md), and [release notes](RELEASE_NOTES.md).
+Read the [specifications index](specs/README.md) for package requirements.
 
 ## Development
 
-```bash
-npm install
-npm test
-npm run lint
-npm run typecheck
-npm run pack
-npm audit --omit=dev --audit-level=moderate
-```
+Install dependencies with `npm ci`. Keep each implementation file under `src/` and its test under `tests/`.
 
-This package is a re-export/compatibility layer. Its tests verify the public export contract and representative delegation to the underlying packages; implementation behavior is tested in those dependency packages.
+## Testing
+
+Run `npm test` for full repository validation. Run `npm run typecheck` to check TypeScript declarations.
+Run `npm run lint`, `npm run format:check`, `npm run audit`, and `npm run pack` for focused checks.
+
+## Troubleshooting
+
+Run `npm ci`, then `npm test`. Fix the first reported issue before you run validation again.
 
 ## Security
 
-Do not log secrets or include credentials or machine-specific paths in examples. Review delegated package behavior and keep dependencies updated before publishing.
+Do not log secrets or include credentials or machine-specific paths in examples. Review delegated package behavior and update dependencies before publication.
+
+## API
+
+The package exports `fs`; `log`, `createLogger`, and `safeSerialize`; path helpers; `registerHandlers`; and `registerSignals`.
+The TypeScript declarations export the related option and result types.
+
+## Packaging
+
+The package uses native ESM. Its public entry point is `src/index.mjs`; its declaration file is `src/index.d.ts`.
+The npm package includes `src/`, `docs/`, `examples/`, `specs/`, and the required package documents.
+
+## Examples
+
+Read the [examples index](examples/README.md) for the runnable example and its expected behavior.
 
 ## Support
 
@@ -134,8 +111,9 @@ For help, questions, or to chat with the author and community, visit:
 ## Links
 
 - [Home Page](https://eliware.org)
-- [GitHub Repo](https://github.com/eliware/common)
 - [GitHub Org](https://github.com/eliware)
+- [GitHub Repo](https://github.com/eliware/common)
+- [Bug Reports](https://github.com/eliware/common/issues)
 - [npm](https://www.npmjs.com/package/@eliware/common)
 - [Discord](https://discord.gg/M6aTR9eTwN)
 
