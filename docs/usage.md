@@ -33,14 +33,20 @@ const createId = createSnowflakeGenerator({ workerId: 1, processId: 1 });
 
 log.info("Read configuration", { configFile, id: createId() });
 const handlers = registerHandlers();
-const signals = registerSignals({
-  shutdownHook: async () => handlers.removeHandlers(),
+const keepAlive = setInterval(() => log.info("Waiting for SIGTERM or SIGINT."), 60_000);
+
+registerSignals({
+  shutdownHook: () => {
+    clearInterval(keepAlive);
+    handlers.removeHandlers();
+  },
 });
 
 console.log(fs.existsSync(configFile));
 ```
 
-This code logs one Snowflake ID and checks one file. The signal handler removes the error handlers at shutdown.
+This code logs one Snowflake ID and checks one file. It stays active until a signal starts shutdown.
+The shutdown hook stops the timer and removes the error handlers.
 
 ## Use path helpers
 

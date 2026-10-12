@@ -23,15 +23,14 @@ const errorHandlers = registerHandlers({
   events: ["uncaughtException", "unhandledRejection"],
 });
 
-const signals = registerSignals({
+const keepAlive = setInterval(() => log.info("Waiting for SIGTERM or SIGINT."), 60_000);
+
+registerSignals({
   shutdownHook: async (signal) => {
     log.info(`Cleaning up after ${signal}`);
     errorHandlers.removeHandlers();
+    clearInterval(keepAlive);
   },
 });
 
 log.info("Handlers registered. Send SIGTERM or SIGINT to shut down gracefully.");
-
-// Keep the process alive for this demonstration; real applications usually
-// stay alive because they have a server, worker, or other active resource.
-void signals;
