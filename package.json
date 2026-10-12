@@ -1,6 +1,6 @@
 {
   "name": "@eliware/common",
-  "version": "12.0.0",
+  "version": "12.0.1",
   "type": "module",
   "description": "A shared ESM compatibility package for Eliware filesystem, path, logging, error, and signal APIs.",
   "keywords": [

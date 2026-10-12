@@ -1,11 +1,16 @@
 # Release Notes
 
+## 12.0.1 — 2026-10-12
+
+### Added
+
+- Added `@eliware/redact` APIs and TypeScript option types.
+
 ## 12.0.0 — 2026-10-12
 
 ### Added
 
 - Added Snowflake ID exports, constants, and TypeScript types.
-- Added `@eliware/redact` APIs and TypeScript option types.
 - Added user docs for APIs, package contents, setup, and troubleshooting.
 
 ### Changed
