@@ -23,88 +23,51 @@ A shared ESM compatibility package for Eliware filesystem, path, logging, error,
 
 ## Features
 
-- Import shared Eliware APIs from one package.
-- Use file system, path, log, error, and signal APIs.
-- Use included TypeScript declarations.
+Import shared Eliware APIs from `@eliware/common`.
 
 ## Requirements
 
-- Use Node.js 26 or newer.
-- Install the package from npm.
+Use Node.js 26 or later.
 
 ## Setup
 
-```bash
+Install the package.
+
+```text
 npm install @eliware/common
 ```
 
 ## Usage
 
-Import the public APIs from `@eliware/common`.
-
-```js
-import {
-  fs,
-  log,
-  path,
-  pathUrl,
-  resolvePath,
-  createSnowflakeGenerator,
-  registerHandlers,
-  registerSignals,
-} from "@eliware/common";
-
-const configPath = path(import.meta, ".env");
-const configUrl = pathUrl(import.meta, ".env");
-const absolutePath = resolvePath(import.meta, "config");
-
-log.info("Application starting", { configPath, configUrl, absolutePath });
-log.info(`Files: ${fs.readdirSync(path(import.meta)).join(", ")}`);
-
-const createId = createSnowflakeGenerator({ workerId: 1, processId: 1 });
-log.info("Snowflake ID", createId());
-
-const errors = registerHandlers({ events: ["uncaughtException", "unhandledRejection"] });
-const signals = registerSignals({ shutdownHook: async () => errors.removeHandlers() });
-
-process.once("SIGTERM", () => void signals.shutdown("SIGTERM"));
-```
-
-Read the [documentation index](docs/README.md), [usage guide](docs/usage.md), [troubleshooting guide](docs/troubleshooting.md), and [release notes](RELEASE_NOTES.md).
-Read the [specifications index](specs/README.md) for package requirements.
+Read the [user docs](docs/README.md) and [release notes](RELEASE_NOTES.md).
 
 ## Development
 
-Install dependencies with `npm ci`. Keep each implementation file under `src/` and its test under `tests/`.
+Read the [examples index](examples/README.md) and [specifications index](specs/README.md).
 
 ## Testing
 
-Run `npm test` for full repository validation. Run `npm run typecheck` to check TypeScript declarations.
-Run `npm run lint`, `npm run format:check`, `npm run audit`, and `npm run pack` for focused checks.
+Run `npm test` to check the repository.
 
 ## Troubleshooting
 
-Run `npm ci`, then `npm test`. Fix the first reported issue before you run validation again.
+Read the [troubleshooting guide](docs/troubleshooting.md).
 
 ## Security
 
-Do not log secrets or include credentials or machine-specific paths in examples. Review delegated package behavior and update dependencies before publication.
+Keep secrets and credentials out of logs and examples.
 
 ## API
 
-The package exports `fs`; `log`, `createLogger`, and `safeSerialize`; path helpers; and handler functions.
-It also exports `createSnowflakeGenerator`, `generate`, `snowflake`, and `constants`.
-The `generate`, `snowflake`, and default Snowflake exports use one shared generator.
-The TypeScript declarations export `SnowflakeGeneratorOptions` and `SnowflakeConstants`.
+Read the [API reference](docs/api.md) for exported values and types.
 
 ## Packaging
 
-The package uses native ESM. Its public entry point is `src/index.mjs`; its declaration file is `src/index.d.ts`.
-The npm package includes `src/`, `docs/`, `examples/`, `specs/`, and the required package documents.
+Use native ESM. Read the [package guide](docs/package.md) for entry points and files.
 
 ## Examples
 
-Read the [examples index](examples/README.md) for the runnable example and its expected behavior.
+Run the [native ESM examples](examples/README.md) with Node.js 26 or later.
 
 ## Support
 

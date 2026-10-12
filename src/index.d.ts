@@ -4,8 +4,7 @@ import type { RegisterHandlersOptions, RegisteredHandlers } from "@eliware/error
 import type { RegisterSignalsOptions, SignalsRegistration } from "@eliware/signals";
 
 export { fs };
-export { createLogger, default as log } from "@eliware/log";
-export declare function safeSerialize(obj: unknown, redact?: ReadonlySet<string>): unknown;
+export { createLogger, default as log, safeSerialize } from "@eliware/log";
 export {
   path,
   pathUrl,

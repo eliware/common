@@ -1,23 +1,21 @@
 # Release Notes
 
-## Unreleased
-
-### Changed
-
-- Prepared exports for the `@eliware/snowflake` generator package.
-
 ## 12.0.0 — 2026-10-12
 
+### Added
+
+- Added Snowflake ID exports, constants, and TypeScript types.
+- Added user docs for APIs, package contents, setup, and troubleshooting.
+
 ### Changed
 
-- Updated the shared Eliware dependencies to version 12.
-- Moved the public runtime entry point and declarations under `src/`.
-- Updated package validation, documentation, and workflows to current shared conventions.
+- Updated the Eliware runtime dependencies to major version 12.
+- Moved the public runtime and declaration entry points into `src/`.
 
 ### Breaking changes
 
-- Require Node.js 26 or later.
-- Require major version 12 of the shared Eliware dependency packages.
+- Removed the root-level `index.mjs` and `index.d.ts` files. Import from `@eliware/common`.
+- Require major version 12 of the Eliware runtime dependencies.
 
 ## 2.0.0 — 2026-08-25
 

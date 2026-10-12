@@ -1,12 +1,12 @@
-# Documentation
+# User docs
 
-This directory contains end-user documentation for `@eliware/common`.
+Use these guides to install and use `@eliware/common`.
 
-## Contents
+## Guides
 
-- [Usage](usage.md)
+- [Setup and usage](usage.md)
+- [API reference](api.md)
+- [Package contents and compatibility](package.md)
 - [Troubleshooting](troubleshooting.md)
 
-Audience: package users. Prerequisites: a supported runtime and configured
-project. Expected result: documented commands complete without undocumented
-environment assumptions.
+Use Node.js 26 or later. Use an ESM project.
