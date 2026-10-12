@@ -19,6 +19,7 @@ The package uses major version 12 of these Eliware packages:
 - `@eliware/errors`
 - `@eliware/log`
 - `@eliware/path`
+- `@eliware/redact`
 - `@eliware/signals`
 - `@eliware/snowflake`
 

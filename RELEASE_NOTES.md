@@ -5,6 +5,7 @@
 ### Added
 
 - Added Snowflake ID exports, constants, and TypeScript types.
+- Added `@eliware/redact` APIs and TypeScript option types.
 - Added user docs for APIs, package contents, setup, and troubleshooting.
 
 ### Changed

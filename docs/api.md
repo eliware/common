@@ -45,6 +45,25 @@ It does not call `toJSON`. It uses default secret keys and limits when you omit 
 It returns JSON-safe values. It converts BigInt values to text and marks circular or truncated values.
 Read the [log package docs](https://github.com/eliware/log/tree/main/docs) for defaults and details.
 
+## Redaction APIs
+
+`defaultPolicy` provides the default sensitive key names and marker.
+Call `createPolicy(options?)` to make a frozen policy with custom key names or markers.
+Call `redactValue(value, options?)` to return a redacted copy of an object or array.
+Call `redactHeaders(headers, options?)` to redact header values in an object, pair array, or entries object.
+Call `redactText(value, options?)` to redact common credential patterns, custom key values, and literal secrets.
+Call `replaceLiteralSecret(value, secret, marker?)` to replace one exact secret in text.
+
+Policy options include `keys`, `redactKeys`, `marker`, and `circularMarker`.
+Structured values also support `maxDepth`, `maxKeys`, and `maxArray` limits.
+Text also supports `secrets` and the `maxOutputLength` limit.
+The default marker is `[REDACTED]`. The default text limit is 10,000 characters.
+`redactText` detects authorization values, secret assignments, provider tokens, JWT-like strings, and key blocks.
+`redactValue` returns a copy and does not change its input.
+`redactHeaders` keeps the input shape for objects and pair arrays. It returns a lowercase object for entries objects.
+The `safeSerialize` export in Log APIs is the same function as `@eliware/redact` exports.
+Read the [Redact API guide](https://github.com/eliware/redact/blob/main/docs/api.md) for full rules and limits.
+
 ## Error handlers
 
 Call `registerHandlers(options?)` to register handlers for process events.
@@ -112,6 +131,7 @@ The package exports these types:
 - `Logger`
 - `RegisterHandlersOptions` and `RegisteredHandlers`
 - `RegisterSignalsOptions` and `SignalsRegistration`
+- `RedactionPolicy`, `SerializationOptions`, `StructuredRedactionOptions`, and `TextRedactionOptions`
 - `SnowflakeGeneratorOptions` and `SnowflakeConstants`
 
 Read the [declaration file](../src/index.d.ts) for the current type exports.

@@ -21,6 +21,20 @@ export {
   constants,
 } from "@eliware/snowflake";
 export type { SnowflakeGeneratorOptions, SnowflakeConstants } from "@eliware/snowflake";
+export {
+  createPolicy,
+  defaultPolicy,
+  redactValue,
+  redactHeaders,
+  redactText,
+  replaceLiteralSecret,
+} from "@eliware/redact";
+export type {
+  RedactionPolicy,
+  SerializationOptions,
+  StructuredRedactionOptions,
+  TextRedactionOptions,
+} from "@eliware/redact";
 export { default as registerHandlers } from "@eliware/errors";
 export { default as registerSignals } from "@eliware/signals";
 export type {

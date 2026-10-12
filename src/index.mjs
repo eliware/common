@@ -15,5 +15,13 @@ export {
   generate,
   constants,
 } from "@eliware/snowflake";
+export {
+  createPolicy,
+  defaultPolicy,
+  redactValue,
+  redactHeaders,
+  redactText,
+  replaceLiteralSecret,
+} from "@eliware/redact";
 export { default as registerHandlers } from "./errors.mjs";
 export { default as registerSignals } from "./signals.mjs";

@@ -86,6 +86,22 @@ logger.info("Request complete", safeSerialize({ requestId: "example" }));
 
 Pass metadata as the second logger argument. Use `safeSerialize` to remove secret fields before you log data.
 
+## Redact sensitive values
+
+Use `redactText` to remove credentials from text before you log or store it.
+
+```js
+import { redactText, redactValue } from "@eliware/common";
+
+const message = redactText("Authorization: Bearer example-token");
+const record = redactValue({ user: "alex", token: "example-token" });
+console.log(message, record);
+```
+
+`redactText` applies common credential rules. Pass `secrets` to replace known literal values.
+`redactValue` returns a copy with sensitive property values replaced.
+Read the [Redaction APIs](api.md#redaction-apis) for policies, options, limits, and header handling.
+
 ## Handle process errors and signals
 
 Call `registerHandlers(options)` to add process error handlers. Call its `removeHandlers()` method when you no longer need them.

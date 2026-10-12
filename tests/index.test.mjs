@@ -14,10 +14,17 @@ import {
   generate,
   snowflake,
   constants as snowflakeConstants,
+  createPolicy,
+  defaultPolicy,
+  redactValue,
+  redactHeaders,
+  redactText,
+  replaceLiteralSecret,
   registerHandlers,
   registerSignals,
 } from "../src/index.mjs";
 import snowflakeDefault, * as snowflakePackage from "@eliware/snowflake";
+import * as redactPackage from "@eliware/redact";
 
 test("exports the public API", () => {
   expect(typeof fs.readFile).toBe("function");
@@ -38,6 +45,13 @@ test("exports the public API", () => {
   expect(createSnowflakeGenerator).toBe(snowflakePackage.createSnowflakeGenerator);
   expect(snowflakeConstants).toBe(snowflakePackage.constants);
   expect(snowflakePackage.snowflake).toBe(snowflakeDefault);
+  expect(createPolicy).toBe(redactPackage.createPolicy);
+  expect(defaultPolicy).toBe(redactPackage.defaultPolicy);
+  expect(redactValue).toBe(redactPackage.redactValue);
+  expect(redactHeaders).toBe(redactPackage.redactHeaders);
+  expect(redactText).toBe(redactPackage.redactText);
+  expect(replaceLiteralSecret).toBe(redactPackage.replaceLiteralSecret);
+  expect(safeSerialize).toBe(redactPackage.safeSerialize);
   expect(typeof registerHandlers).toBe("function");
   expect(typeof registerSignals).toBe("function");
 });
@@ -51,4 +65,19 @@ test("creates decimal string IDs through the common API", () => {
   });
 
   expect(createId()).toMatch(/^\d+$/);
+});
+
+test("redacts text, objects, and headers through the common API", () => {
+  const policy = createPolicy({ keys: [...defaultPolicy.keys, "sessionId"] });
+
+  expect(redactText("sessionId=example-value", { keys: ["sessionId"], marker: "[HIDDEN]" })).toBe(
+    "sessionId=[HIDDEN]",
+  );
+  expect(redactValue({ sessionId: "example-value" }, policy)).toEqual({
+    sessionId: "[REDACTED]",
+  });
+  expect(redactHeaders({ Authorization: "Bearer example-token" })).toEqual({
+    Authorization: "[REDACTED]",
+  });
+  expect(replaceLiteralSecret("token=example-secret", "example-secret")).toBe("token=[REDACTED]");
 });
