@@ -1,5 +1,11 @@
 # Release Notes
 
+## Unreleased
+
+### Changed
+
+- Prepared exports for the `@eliware/snowflake` generator package.
+
 ## 12.0.0 — 2026-10-12
 
 ### Changed

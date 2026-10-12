@@ -3,7 +3,7 @@ description: Defines requirements for the Eliware common package.
 directives:
   - id: E-199.0
     dos:
-      - Export the shared file system, path, logging, error, and signal APIs from the package entry point.
+      - Export the shared file system, path, logging, error, signal, and Snowflake APIs from the package entry point.
       - Keep the package entry point and declaration file under src/.
       - Mirror every source module with one test module under tests/.
       - Use the shared Eliware packages for delegated runtime behavior.

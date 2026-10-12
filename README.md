@@ -49,6 +49,7 @@ import {
   path,
   pathUrl,
   resolvePath,
+  createSnowflakeGenerator,
   registerHandlers,
   registerSignals,
 } from "@eliware/common";
@@ -59,6 +60,9 @@ const absolutePath = resolvePath(import.meta, "config");
 
 log.info("Application starting", { configPath, configUrl, absolutePath });
 log.info(`Files: ${fs.readdirSync(path(import.meta)).join(", ")}`);
+
+const createId = createSnowflakeGenerator({ workerId: 1, processId: 1 });
+log.info("Snowflake ID", createId());
 
 const errors = registerHandlers({ events: ["uncaughtException", "unhandledRejection"] });
 const signals = registerSignals({ shutdownHook: async () => errors.removeHandlers() });
@@ -88,8 +92,10 @@ Do not log secrets or include credentials or machine-specific paths in examples.
 
 ## API
 
-The package exports `fs`; `log`, `createLogger`, and `safeSerialize`; path helpers; `registerHandlers`; and `registerSignals`.
-The TypeScript declarations export the related option and result types.
+The package exports `fs`; `log`, `createLogger`, and `safeSerialize`; path helpers; and handler functions.
+It also exports `createSnowflakeGenerator`, `generate`, `snowflake`, and `constants`.
+The `generate`, `snowflake`, and default Snowflake exports use one shared generator.
+The TypeScript declarations export `SnowflakeGeneratorOptions` and `SnowflakeConstants`.
 
 ## Packaging
 
