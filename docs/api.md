@@ -17,7 +17,7 @@ Read the [Node.js file system API](https://nodejs.org/api/fs.html) for functions
 
 | Export               | Call                                       | Result                                             |
 | -------------------- | ------------------------------------------ | -------------------------------------------------- |
-| `path`               | `path(metaOrDir, ...segments)`             | Join segments to a module directory.               |
+| `path`               | `path(metaOrDir, ...segments)`             | Add segments to a module directory.                |
 | `pathUrl`            | `pathUrl(metaOrDir, ...segments)`          | Return a file URL string.                          |
 | `getCurrentDirname`  | `getCurrentDirname(metaOrDir, dirnameFn?)` | Return the module directory.                       |
 | `getCurrentFilename` | `getCurrentFilename(metaOrDir)`            | Return the module filename or input string.        |
@@ -29,7 +29,7 @@ Pass `import.meta` or a directory string as `metaOrDir`. Pass `dirnameFn` only w
 The default export from `@eliware/path` is named `path` here.
 Read the [path package docs](https://github.com/eliware/path/tree/main/docs) for details.
 
-## Log APIs
+## Logger APIs
 
 | Export          | Call                                            | Result                                           |
 | --------------- | ----------------------------------------------- | ------------------------------------------------ |
@@ -40,10 +40,11 @@ Read the [path package docs](https://github.com/eliware/path/tree/main/docs) for
 `createLogger` accepts `level`, `transports`, `format`, `timestamp`, and `keys` options.
 Use `format: "text"` or `format: "json"`. The default level is `info`.
 The other defaults are a console transport, text format, no timestamp, and no custom redaction keys.
+
 `safeSerialize` accepts `keys`, `redactKeys`, `marker`, `circularMarker`, `maxDepth`, `maxKeys`, `maxArray`, and `maxString` options.
 It does not call `toJSON`. It uses default secret keys and limits when you omit options.
 It returns JSON-safe values. It converts BigInt values to text and marks circular or truncated values.
-Read the [log package docs](https://github.com/eliware/log/tree/main/docs) for defaults and details.
+Read the [logger package docs](https://github.com/eliware/log/tree/main/docs) for defaults and details.
 
 ## Redaction APIs
 
@@ -51,29 +52,33 @@ Read the [log package docs](https://github.com/eliware/log/tree/main/docs) for d
 Call `createPolicy(options?)` to make a frozen policy with custom key names or markers.
 Call `redactValue(value, options?)` to return a redacted copy of an object or array.
 Call `redactHeaders(headers, options?)` to redact header values in an object, pair array, or entries object.
-Call `redactText(value, options?)` to redact common credential patterns, custom key values, and literal secrets.
+Call `redactText(value, options?)` to redact standard credential patterns, custom key values, and literal secrets.
 Call `replaceLiteralSecret(value, secret, marker?)` to replace one exact secret in text.
 
 Policy options include `keys`, `redactKeys`, `marker`, and `circularMarker`.
 Structured values also support `maxDepth`, `maxKeys`, and `maxArray` limits.
 Text also supports `secrets` and the `maxOutputLength` limit.
+
 The default marker is `[REDACTED]`. The default text limit is 10,000 characters.
 `redactText` detects authorization values, secret assignments, provider tokens, JWT-like strings, and key blocks.
+
 `redactValue` returns a copy and does not change its input.
 `redactHeaders` keeps the input shape for objects and pair arrays. It returns a lowercase object for entries objects.
-The `safeSerialize` export in Log APIs is the same function as `@eliware/redact` exports.
+
+The `safeSerialize` export in Logger APIs matches the `safeSerialize` export from `@eliware/redact`.
+
 Read the [Redact API guide](https://github.com/eliware/redact/blob/main/docs/api.md) for full rules and limits.
 
 ## Error handlers
 
-Call `registerHandlers(options?)` to register handlers for process events.
+Call `registerHandlers(options?)` to add handlers for process events.
 The default events are `uncaughtException`, `unhandledRejection`, and `warning`.
 
 | Option       | Default                    | Purpose                                       |
 | ------------ | -------------------------- | --------------------------------------------- |
 | `processObj` | `process`                  | Set the process-like event source.            |
 | `log`        | `@eliware/log`             | Set the logger.                               |
-| `events`     | Three process error events | Set the events to handle.                     |
+| `events`     | Three process error events | Set the events for this function.             |
 | `once`       | `false`                    | Set one-time handler behavior.                |
 | `signal`     | None                       | Remove handlers when an `AbortSignal` aborts. |
 
@@ -84,23 +89,26 @@ Read the [errors package docs](https://github.com/eliware/errors/tree/main/docs)
 
 ## Shutdown handlers
 
-Call `registerSignals(options?)` to register process shutdown handlers.
+Call `registerSignals(options?)` to add process shutdown handlers.
 The default signals are `SIGTERM`, `SIGINT`, and `SIGHUP`.
 
-| Option         | Default                       | Purpose                                          |
-| -------------- | ----------------------------- | ------------------------------------------------ |
-| `processObj`   | `process`                     | Set the process-like event source.               |
-| `log`          | `@eliware/log`                | Set the logger.                                  |
-| `signals`      | `SIGTERM`, `SIGINT`, `SIGHUP` | Set the signals to handle.                       |
-| `shutdownHook` | None                          | Set cleanup work. The hook can return a promise. |
-| `exitCode`     | `0`                           | Set the process exit code.                       |
-| `exit`         | `true`                        | Allow or prevent process exit.                   |
-| `signal`       | None                          | Remove handlers when an `AbortSignal` aborts.    |
+| Option         | Default                       | Purpose                                               |
+| -------------- | ----------------------------- | ----------------------------------------------------- |
+| `processObj`   | `process`                     | Set the process-like event source.                    |
+| `log`          | `@eliware/log`                | Set the logger.                                       |
+| `signals`      | `SIGTERM`, `SIGINT`, `SIGHUP` | Set the signals for this function.                    |
+| `shutdownHook` | None                          | Set cleanup work. This function can return a promise. |
+| `exitCode`     | `0`                           | Set the process exit code.                            |
+| `exit`         | `true`                        | Allow or prevent process exit.                        |
+| `signal`       | None                          | Remove handlers when an `AbortSignal` aborts.         |
 
 The result has `removed`, `shutdown(signal?)`, `getShuttingDown()`, and `removeHandlers()` members.
-The default `exit` value is `true`. Set `exit: false` when your program controls process exit.
-Each hook runs once. The package runs hooks in order and continues after a hook error.
-Pass an empty `signals` array to disable signal events. A `beforeExit` handler still runs.
+
+The default `exit` value is `true`. Set `exit: false` when your app controls process exit.
+
+Each callback runs once. The package calls callbacks in order and continues after an error.
+
+Pass an empty `signals` array to disable signal events. A `beforeExit` handler also runs.
 Read the [signals API docs](https://github.com/eliware/signals/blob/main/docs/api.md) for shutdown order and error behavior.
 
 ## Snowflake IDs
@@ -116,13 +124,16 @@ Call `createSnowflakeGenerator(options?)` to make a generator. Each call returns
 
 Use one epoch for all generators in one application. Give each active generator a unique worker and process ID pair.
 Keep each ID as a string. An ID uses a 42-bit timestamp, 5-bit worker value, 5-bit process value, and 12-bit sequence.
-Each generator can create 4096 IDs per millisecond. It throws `RangeError` when time or sequence limits fail.
+
+Each generator can create 4096 IDs for each millisecond. It throws `RangeError` when time or sequence limits fail.
 Pass a safe integer or `bigint` to `epoch`, `workerId`, and `processId`.
+
 Pass a clock that returns Unix milliseconds as a safe integer or `bigint`.
-The generator uses its last timestamp when the clock moves backward.
+The generator uses its last timestamp when the clock moves to an earlier time.
 The exports `generate`, `snowflake`, and the default export from `@eliware/snowflake` use one shared generator.
 The `constants` export provides `epoch`, `sequenceBits`, `processBits`, and `workerBits` values as `bigint`.
-Read the [Snowflake usage guide](https://github.com/eliware/snowflake/blob/main/docs/usage.md) for timestamp bounds and clock behavior.
+
+Read the [Snowflake usage guide](https://github.com/eliware/snowflake/blob/main/docs/usage.md) for timestamp limits and clock behavior.
 
 ## TypeScript types
 

@@ -19,15 +19,15 @@ Pass `import.meta` or a directory string to a path helper.
 Pass a file URL to `fileUrlToPath`.
 Read the [path API section](api.md#path-helpers) for each helper's result.
 
-## Log errors
+## Logger errors
 
 Check the `level`, `transports`, and `format` options passed to `createLogger`.
 Pass a logger with `debug`, `info`, `warn`, and `error` methods where required.
-Remove secret values before you write metadata to logs.
+Remove secret values before you write metadata to logger output.
 
 ## Process handler errors
 
-Keep each handler registration while you need it.
+Keep each handler registration while it is required.
 Call `removeHandlers()` to remove error or signal handlers.
 Pass a valid process-like object and event names.
 Read the [API reference](api.md#error-handlers) and [shutdown handler guide](api.md#shutdown-handlers).
@@ -36,7 +36,7 @@ Read the [API reference](api.md#error-handlers) and [shutdown handler guide](api
 
 Give each active generator a unique worker and process ID pair.
 Keep generated IDs as decimal strings. Do not convert them to `number`.
-Wait for the clock to advance after a sequence limit error.
+Wait until the clock value changes after a sequence limit error.
 Check the epoch and clock when the generator reports a timestamp error.
 Read [Snowflake IDs](api.md#snowflake-ids) for limits and clock behavior.
 
@@ -44,4 +44,4 @@ Read [Snowflake IDs](api.md#snowflake-ids) for limits and clock behavior.
 
 Run `npm ci` to install locked dependencies.
 Run `npm test` to check the repository.
-Fix the first reported error, then run `npm test` again.
+Repair the first reported error, then run `npm test` again.

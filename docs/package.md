@@ -23,7 +23,7 @@ The package uses major version 12 of these Eliware packages:
 - `@eliware/signals`
 - `@eliware/snowflake`
 
-Use the exports in this package. Use each dependency directly when you need its own package entry point.
+Use the exports in this package. Use a dependency directly when your app requires its own entry point.
 Read the [API reference](api.md) for each exported value.
 
 ## Published files

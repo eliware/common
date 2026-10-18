@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Use Node.js 26 or later. Use a project with native ESM.
+Use Node.js 26 or later. Use a project that supports native ESM.
 
 ## Install
 
@@ -16,7 +16,7 @@ The package installs its Eliware runtime dependencies.
 
 ## Import public APIs
 
-Import the APIs that your program needs.
+Import the APIs that your app requires.
 
 ```js
 import {
@@ -45,8 +45,8 @@ registerSignals({
 console.log(fs.existsSync(configFile));
 ```
 
-This code logs one Snowflake ID and checks one file. It stays active until a signal starts shutdown.
-The shutdown hook stops the timer and removes the error handlers.
+This code writes one Snowflake ID and checks one file. It stays active until a signal starts shutdown.
+The shutdown callback stops the timer and removes the error handlers.
 
 ## Use path helpers
 
@@ -73,7 +73,7 @@ const localFile = fileUrlToPath(url);
 Pass a directory string when code does not have `import.meta`.
 Read the [API reference](api.md) for each path helper.
 
-## Use log APIs
+## Use logger APIs
 
 Use the default `log` object or create a logger with `createLogger(options)`.
 
@@ -84,11 +84,11 @@ const logger = createLogger({ format: "json", timestamp: true });
 logger.info("Request complete", safeSerialize({ requestId: "example" }));
 ```
 
-Pass metadata as the second logger argument. Use `safeSerialize` to remove secret fields before you log data.
+Pass metadata as the second logger argument. Use `safeSerialize` to remove secret fields before you write records.
 
 ## Redact sensitive values
 
-Use `redactText` to remove credentials from text before you log or store it.
+Use `redactText` to remove credentials from text before you write or store it.
 
 ```js
 import { redactText, redactValue } from "@eliware/common";
@@ -98,14 +98,16 @@ const record = redactValue({ user: "alex", token: "example-token" });
 console.log(message, record);
 ```
 
-`redactText` applies common credential rules. Pass `secrets` to replace known literal values.
+`redactText` applies standard credential rules. Pass `secrets` to replace known literal values.
 `redactValue` returns a copy with sensitive property values replaced.
 Read the [Redaction APIs](api.md#redaction-apis) for policies, options, limits, and header handling.
 
-## Handle process errors and signals
+## Process errors and signals
 
-Call `registerHandlers(options)` to add process error handlers. Call its `removeHandlers()` method when you no longer need them.
-Call `registerSignals(options)` to add shutdown handlers. Pass `shutdownHook` to run cleanup work.
+Call `registerHandlers(options)` to add process error handlers.
+Call its `removeHandlers()` method when the handlers are no longer required.
+Call `registerSignals(options)` to add shutdown handlers.
+Pass `shutdownHook` to run cleanup.
 Read the [API reference](api.md) for defaults, options, return values, and dependency guides.
 
 ## Create Snowflake IDs

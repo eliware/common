@@ -23,7 +23,7 @@ A shared ESM compatibility package for Eliware filesystem, path, logging, error,
 
 ## Features
 
-Import shared Eliware APIs, including secret-redaction tools, from `@eliware/common`.
+Import shared Eliware APIs and secret-redaction tools from `@eliware/common`.
 
 ## Requirements
 
@@ -55,7 +55,7 @@ Read the [troubleshooting guide](docs/troubleshooting.md).
 
 ## Security
 
-Keep secrets and credentials out of logs and examples. Use redaction tools as an extra safeguard.
+Use redaction tools to remove secrets and credentials from logs and examples.
 
 ## API
 
