@@ -23,7 +23,7 @@ A shared ESM compatibility package for Eliware filesystem, path, logging, error,
 
 ## Features
 
-Import shared Eliware APIs and secret-redaction tools from `@eliware/common`.
+Import shared Eliware APIs and redaction tools from `@eliware/common`.
 
 ## Requirements
 
@@ -43,7 +43,7 @@ Read the [user docs](docs/README.md) and [release notes](RELEASE_NOTES.md).
 
 ## Development
 
-Read the [examples index](examples/README.md) and [specifications index](specs/README.md).
+Read the [specifications index](specs/README.md) before you change files.
 
 ## Testing
 
@@ -55,19 +55,19 @@ Read the [troubleshooting guide](docs/troubleshooting.md).
 
 ## Security
 
-Use redaction tools to remove secrets and credentials from logs and examples.
+Read the [redaction API guide](docs/api.md#redaction-apis) before you use sensitive data.
 
 ## API
 
-Read the [API reference](docs/api.md) for exported values and types.
+Read the [API reference](docs/api.md).
 
 ## Packaging
 
-Use native ESM. Read the [package guide](docs/package.md) for entry points and files.
+Use native ESM. Read the [package guide](docs/package.md).
 
 ## Examples
 
-Run the [native ESM examples](examples/README.md) with Node.js 26 or later.
+Read the [examples index](examples/README.md).
 
 ## Support
 
