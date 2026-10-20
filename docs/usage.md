@@ -14,6 +14,19 @@ npm install @eliware/common
 
 The package installs its Eliware runtime dependencies.
 
+## Read a file
+
+Use the Node.js `fs` namespace for file operations. This example reads a file as UTF-8 text.
+
+```js
+import { fs } from "@eliware/common";
+
+const text = await fs.promises.readFile("./config.json", "utf8");
+const config = JSON.parse(text);
+```
+
+Use Node.js `fs` documentation for available methods, options, and errors.
+
 ## Import public APIs
 
 Import the APIs that your app requires.
@@ -84,7 +97,16 @@ const logger = createLogger({ format: "json", timestamp: true });
 logger.info("Request complete", safeSerialize({ requestId: "example" }));
 ```
 
-Pass metadata as the second logger argument. Use `safeSerialize` to remove secret fields before you write records.
+Pass metadata as the second logger argument. Use `safeSerialize` to remove secret fields and limit nested values before you write records.
+
+```js
+import { createLogger, safeSerialize } from "@eliware/common";
+
+const logger = createLogger({ format: "json" });
+logger.info("Request complete", safeSerialize({ token: "example", status: 200 }));
+```
+
+The serializer returns a bounded representation. It does not guarantee that all sensitive data has been removed.
 
 ## Redact sensitive values
 
@@ -101,6 +123,18 @@ console.log(message, record);
 `redactText` applies standard credential rules. Pass `secrets` to replace known literal values.
 `redactValue` returns a copy with sensitive property values replaced.
 Read the [Redaction APIs](api.md#redaction-apis) for policies, options, limits, and header handling.
+
+Use `redactHeaders` for HTTP header data. Use `createPolicy` to add a sensitive property name.
+
+```js
+import { createPolicy, redactHeaders, redactValue } from "@eliware/common";
+
+const policy = createPolicy({ keys: ["token", "sessionId"] });
+const record = redactValue({ sessionId: "example", status: 200 }, policy);
+const headers = redactHeaders({ Authorization: "Bearer example", Accept: "application/json" });
+```
+
+The policy replaces the default sensitive names with the names that you provide. Include the default names when you want to keep them.
 
 ## Process errors and signals
 

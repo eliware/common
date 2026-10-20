@@ -5,6 +5,7 @@
 ### Changed
 
 - Aligned package metadata and validation workflows with Eliware convention version 13.
+- Corrected the dependency version in the package guide and expanded usage examples.
 
 ## 12.0.1 — 2026-10-12
 
