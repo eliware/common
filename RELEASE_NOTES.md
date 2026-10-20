@@ -1,11 +1,22 @@
 # Release Notes
 
-## 13.0.0 — 2026-10-17
+## 13.0.0 — 2026-10-19
+
+### Added
+
+- Re-exported the complete runtime APIs and public types from the Eliware errors, log, path, redact, signals, and snowflake packages.
+- Added the `defaultEvents` errors export and TypeScript coverage for the public type exports.
 
 ### Changed
 
-- Aligned package metadata and validation workflows with Eliware convention version 13.
-- Corrected the dependency version in the package guide and expanded usage examples.
+- Upgraded the package and its Eliware runtime and test dependencies to major version 13.
+- Aligned package metadata, specifications, CI, npm publication, and Knit workflows with convention version 13.
+- Updated API, usage, and package documentation for the current exports, dependencies, and common tasks.
+- Simplified `AGENTS.md` and `README.md` to the content required by the conventions.
+
+### Breaking changes
+
+- Require major version 13 of the Eliware runtime dependencies.
 
 ## 12.0.1 — 2026-10-12
 
