@@ -44,12 +44,12 @@
     "node": ">=26"
   },
   "dependencies": {
-    "@eliware/errors": "^12.0.0",
-    "@eliware/log": "^12.0.0",
-    "@eliware/path": "^12.0.0",
-    "@eliware/redact": "^12.0.0",
-    "@eliware/signals": "^12.0.0",
-    "@eliware/snowflake": "^12.0.0"
+    "@eliware/errors": "^13.0.0",
+    "@eliware/log": "^13.0.0",
+    "@eliware/path": "^13.0.0",
+    "@eliware/redact": "^13.0.0",
+    "@eliware/signals": "^13.0.0",
+    "@eliware/snowflake": "^13.0.0"
   },
   "devDependencies": {
     "@eliware/test": "^13.0.0",
