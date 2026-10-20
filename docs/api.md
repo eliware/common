@@ -73,6 +73,7 @@ Read the [Redact API guide](https://github.com/eliware/redact/blob/main/docs/api
 
 Call `registerHandlers(options?)` to add handlers for process events.
 The default events are `uncaughtException`, `unhandledRejection`, and `warning`.
+The `defaultEvents` export contains the default event names.
 
 | Option       | Default                    | Purpose                                       |
 | ------------ | -------------------------- | --------------------------------------------- |
@@ -140,6 +141,9 @@ Read the [Snowflake usage guide](https://github.com/eliware/snowflake/blob/main/
 The package exports these types:
 
 - `Logger`
+- `LoggerWithConfiguredLevels`, `SafeSerializedValue`, and `RedactionOptions`
+- `NodeSignal`, `SignalsLogger`, and `SignalsProcessLike`
+- `ProcessEvent`, `ProcessListener`, and `ProcessLike`
 - `RegisterHandlersOptions` and `RegisteredHandlers`
 - `RegisterSignalsOptions` and `SignalsRegistration`
 - `RedactionPolicy`, `SerializationOptions`, `StructuredRedactionOptions`, and `TextRedactionOptions`

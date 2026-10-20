@@ -20,40 +20,111 @@ import {
   redactHeaders,
   redactText,
   replaceLiteralSecret,
+  defaultEvents,
   registerHandlers,
   registerSignals,
 } from "../src/index.mjs";
 import snowflakeDefault, * as snowflakePackage from "@eliware/snowflake";
 import * as redactPackage from "@eliware/redact";
+import * as errorsPackage from "@eliware/errors";
+import * as commonPackage from "../src/index.mjs";
+
+test("re-exports the exact dependency API surface", () => {
+  expect(Object.keys(commonPackage).sort()).toEqual([
+    "constants",
+    "createLogger",
+    "createPolicy",
+    "createSnowflakeGenerator",
+    "defaultEvents",
+    "defaultPolicy",
+    "fileUrlToPath",
+    "fs",
+    "generate",
+    "getCurrentDirname",
+    "getCurrentFilename",
+    "log",
+    "path",
+    "pathUrl",
+    "redactHeaders",
+    "redactText",
+    "redactValue",
+    "registerHandlers",
+    "registerSignals",
+    "relativePath",
+    "replaceLiteralSecret",
+    "resolvePath",
+    "safeSerialize",
+    "snowflake",
+  ]);
+});
 
 test("exports the public API", () => {
-  expect(typeof fs.readFile).toBe("function");
-  expect(typeof log.info).toBe("function");
-  expect(typeof createLogger).toBe("function");
-  expect(typeof safeSerialize).toBe("function");
-  expect(typeof path).toBe("function");
-  expect(typeof pathUrl).toBe("function");
-  expect(typeof getCurrentDirname).toBe("function");
-  expect(typeof getCurrentFilename).toBe("function");
-  expect(typeof resolvePath).toBe("function");
-  expect(typeof relativePath).toBe("function");
-  expect(typeof fileUrlToPath).toBe("function");
-  expect(typeof createSnowflakeGenerator).toBe("function");
-  expect(typeof generate).toBe("function");
-  expect(snowflake).toBe(snowflakeDefault);
-  expect(generate).toBe(snowflakePackage.generate);
-  expect(createSnowflakeGenerator).toBe(snowflakePackage.createSnowflakeGenerator);
-  expect(snowflakeConstants).toBe(snowflakePackage.constants);
-  expect(snowflakePackage.snowflake).toBe(snowflakeDefault);
-  expect(createPolicy).toBe(redactPackage.createPolicy);
-  expect(defaultPolicy).toBe(redactPackage.defaultPolicy);
-  expect(redactValue).toBe(redactPackage.redactValue);
-  expect(redactHeaders).toBe(redactPackage.redactHeaders);
-  expect(redactText).toBe(redactPackage.redactText);
-  expect(replaceLiteralSecret).toBe(redactPackage.replaceLiteralSecret);
-  expect(safeSerialize).toBe(redactPackage.safeSerialize);
-  expect(typeof registerHandlers).toBe("function");
-  expect(typeof registerSignals).toBe("function");
+  expect({
+    readFile: typeof fs.readFile,
+    logger: typeof log.info,
+    createLogger: typeof createLogger,
+    safeSerialize: typeof safeSerialize,
+    path: typeof path,
+    pathUrl: typeof pathUrl,
+    getCurrentDirname: typeof getCurrentDirname,
+    getCurrentFilename: typeof getCurrentFilename,
+    resolvePath: typeof resolvePath,
+    relativePath: typeof relativePath,
+    fileUrlToPath: typeof fileUrlToPath,
+    createSnowflakeGenerator: typeof createSnowflakeGenerator,
+    generate: typeof generate,
+    registerHandlers: typeof registerHandlers,
+    registerSignals: typeof registerSignals,
+    defaultEvents: Array.isArray(defaultEvents),
+  }).toEqual({
+    readFile: "function",
+    logger: "function",
+    createLogger: "function",
+    safeSerialize: "function",
+    path: "function",
+    pathUrl: "function",
+    getCurrentDirname: "function",
+    getCurrentFilename: "function",
+    resolvePath: "function",
+    relativePath: "function",
+    fileUrlToPath: "function",
+    createSnowflakeGenerator: "function",
+    generate: "function",
+    registerHandlers: "function",
+    registerSignals: "function",
+    defaultEvents: true,
+  });
+
+  expect({
+    snowflake: snowflake === snowflakeDefault,
+    generate: generate === snowflakePackage.generate,
+    createSnowflakeGenerator:
+      createSnowflakeGenerator === snowflakePackage.createSnowflakeGenerator,
+    constants: snowflakeConstants === snowflakePackage.constants,
+    packageSnowflake: snowflakePackage.snowflake === snowflakeDefault,
+    createPolicy: createPolicy === redactPackage.createPolicy,
+    defaultPolicy: defaultPolicy === redactPackage.defaultPolicy,
+    redactValue: redactValue === redactPackage.redactValue,
+    redactHeaders: redactHeaders === redactPackage.redactHeaders,
+    redactText: redactText === redactPackage.redactText,
+    replaceLiteralSecret: replaceLiteralSecret === redactPackage.replaceLiteralSecret,
+    redactSafeSerialize: safeSerialize === redactPackage.safeSerialize,
+    errorsDefaultEvents: defaultEvents === errorsPackage.defaultEvents,
+  }).toEqual({
+    snowflake: true,
+    generate: true,
+    createSnowflakeGenerator: true,
+    constants: true,
+    packageSnowflake: true,
+    createPolicy: true,
+    defaultPolicy: true,
+    redactValue: true,
+    redactHeaders: true,
+    redactText: true,
+    replaceLiteralSecret: true,
+    redactSafeSerialize: true,
+    errorsDefaultEvents: true,
+  });
 });
 
 test("creates decimal string IDs through the common API", () => {

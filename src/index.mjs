@@ -23,5 +23,5 @@ export {
   redactText,
   replaceLiteralSecret,
 } from "@eliware/redact";
-export { default as registerHandlers } from "./errors.mjs";
+export { defaultEvents, default as registerHandlers } from "./errors.mjs";
 export { default as registerSignals } from "./signals.mjs";
