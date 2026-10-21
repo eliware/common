@@ -18,7 +18,7 @@ Read the [Node.js file system API](https://nodejs.org/api/fs.html) for functions
 | Export               | Call                                       | Result                                             |
 | -------------------- | ------------------------------------------ | -------------------------------------------------- |
 | `path`               | `path(metaOrDir, ...segments)`             | Add segments to a module directory.                |
-| `createPathHelpers`  | `createPathHelpers(options?)`              | Create path helpers with an injected logger.       |
+| `createPathHelpers`  | `createPathHelpers(options?)`              | Create path helpers that log each operation.       |
 | `pathUrl`            | `pathUrl(metaOrDir, ...segments)`          | Return a file URL string.                          |
 | `getCurrentDirname`  | `getCurrentDirname(metaOrDir, dirnameFn?)` | Return the module directory.                       |
 | `getCurrentFilename` | `getCurrentFilename(metaOrDir)`            | Return the module filename or input string.        |
@@ -28,8 +28,9 @@ Read the [Node.js file system API](https://nodejs.org/api/fs.html) for functions
 
 Pass `import.meta` or a directory string as `metaOrDir`. Pass `dirnameFn` only with `import.meta`.
 
-Pass a logger with a `log` method to `createPathHelpers` to record path operations.
-The helpers write debug records after operations. They write error records before they report failures.
+Call `createPathHelpers()` to use the default logger. Pass `options.logger` to set the logger.
+The helpers write debug records after operations. They write error records before they throw an error.
+The default logger uses the `info` level, so it filters debug records. Set its level to `debug` to receive operation records.
 
 The default export from `@eliware/path` is named `path` here.
 Read the [path package docs](https://github.com/eliware/path/tree/main/docs) for details.
@@ -121,21 +122,31 @@ Read the [signals API docs](https://github.com/eliware/signals/blob/main/docs/ap
 
 Call `createSnowflakeGenerator(options?)` to make a generator. Each call returns a decimal string.
 
-| Option      | Type                 | Default            | Purpose                                     |
-| ----------- | -------------------- | ------------------ | ------------------------------------------- |
-| `epoch`     | `number` or `bigint` | `365662380000n`    | Set the epoch in Unix milliseconds.         |
-| `workerId`  | `number` or `bigint` | `0`                | Set a worker value from 0 through 31.       |
-| `processId` | `number` or `bigint` | `process.pid % 32` | Set a process value from 0 through 31.      |
-| `now`       | function             | `Date.now`         | Set a clock that returns Unix milliseconds. |
+| Option      | Type                         | Default            | Purpose                                           |
+| ----------- | ---------------------------- | ------------------ | ------------------------------------------------- |
+| `epoch`     | `number` or `bigint`         | `365662380000n`    | Set the epoch in Unix milliseconds.               |
+| `workerId`  | `number` or `bigint`         | `0`                | Set a worker value from 0 through 31.             |
+| `processId` | `number` or `bigint`         | `process.pid % 32` | Set a process value from 0 through 31.            |
+| `now`       | function                     | `Date.now`         | Set a clock that returns Unix milliseconds.       |
+| `logger`    | `LoggerWithConfiguredLevels` | None               | Record generator events with a structured logger. |
 
 Use one epoch for all generators in one application. Give each active generator a unique worker and process ID pair.
 Keep each ID as a string. An ID uses a 42-bit timestamp, 5-bit worker value, 5-bit process value, and 12-bit sequence.
 
 Each generator can create 4096 IDs for each millisecond. It throws `RangeError` when time or sequence limits fail.
+
 Pass a safe integer or `bigint` to `epoch`, `workerId`, and `processId`.
+Set `epoch` from zero through `(1n << 42n) - 1n`. Set `workerId` and `processId` from 0 through 31.
 
 Pass a clock that returns Unix milliseconds as a safe integer or `bigint`.
-The generator uses its last timestamp when the clock moves to an earlier time.
+Set the first clock value at or after the epoch.
+After the first ID, the generator uses its last timestamp when the clock moves to an earlier time.
+
+The generator increments its sequence during a clock rollback. It throws `RangeError` when one generator creates more than 4096 IDs in one millisecond.
+
+Pass a logger with `error`, `warn`, `info`, and `debug` methods to record generator events. The generator writes no records when you omit the logger.
+The records do not include generated IDs, credentials, tokens, or error messages.
+
 The exports `generate`, `snowflake`, and the default export from `@eliware/snowflake` use one shared generator.
 The `constants` export provides `epoch`, `sequenceBits`, `processBits`, and `workerBits` values as `bigint`.
 

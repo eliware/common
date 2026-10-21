@@ -86,6 +86,18 @@ const localFile = fileUrlToPath(url);
 Pass a directory string when code does not have `import.meta`.
 Read the [API reference](api.md) for each path helper.
 
+Use `createPathHelpers` when your app must record path operations with a custom logger.
+
+```js
+import { createPathHelpers } from "@eliware/common";
+
+const records = [];
+const helpers = createPathHelpers({ logger: { log: (record) => records.push(record) } });
+const file = helpers.path(import.meta, "data", "input.json");
+```
+
+The helper writes a debug record after it completes a path operation.
+
 ## Use logger APIs
 
 Use the default `log` object or create a logger with `createLogger(options)`.
