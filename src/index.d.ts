@@ -8,6 +8,7 @@ export type {
 } from "@eliware/log";
 export {
   path,
+  createPathHelpers,
   pathUrl,
   getCurrentDirname,
   getCurrentFilename,
@@ -15,6 +16,7 @@ export {
   relativePath,
   fileUrlToPath,
 } from "@eliware/path";
+export type { PathLogger, PathHelpersOptions, PathHelpers } from "@eliware/path";
 export {
   createSnowflakeGenerator,
   generate,

@@ -18,6 +18,7 @@ Read the [Node.js file system API](https://nodejs.org/api/fs.html) for functions
 | Export               | Call                                       | Result                                             |
 | -------------------- | ------------------------------------------ | -------------------------------------------------- |
 | `path`               | `path(metaOrDir, ...segments)`             | Add segments to a module directory.                |
+| `createPathHelpers`  | `createPathHelpers(options?)`              | Create path helpers with an injected logger.       |
 | `pathUrl`            | `pathUrl(metaOrDir, ...segments)`          | Return a file URL string.                          |
 | `getCurrentDirname`  | `getCurrentDirname(metaOrDir, dirnameFn?)` | Return the module directory.                       |
 | `getCurrentFilename` | `getCurrentFilename(metaOrDir)`            | Return the module filename or input string.        |
@@ -26,6 +27,10 @@ Read the [Node.js file system API](https://nodejs.org/api/fs.html) for functions
 | `fileUrlToPath`      | `fileUrlToPath(fileUrl)`                   | Convert a file URL string or `URL` to a file path. |
 
 Pass `import.meta` or a directory string as `metaOrDir`. Pass `dirnameFn` only with `import.meta`.
+
+Pass a logger with a `log` method to `createPathHelpers` to record path operations.
+The helpers write debug records after operations. They write error records before they report failures.
+
 The default export from `@eliware/path` is named `path` here.
 Read the [path package docs](https://github.com/eliware/path/tree/main/docs) for details.
 
@@ -142,6 +147,7 @@ The package exports these types:
 
 - `Logger`
 - `LoggerWithConfiguredLevels`, `SafeSerializedValue`, and `RedactionOptions`
+- `PathLogger`, `PathHelpersOptions`, and `PathHelpers`
 - `NodeSignal`, `SignalsLogger`, and `SignalsProcessLike`
 - `ProcessEvent`, `ProcessListener`, and `ProcessLike`
 - `RegisterHandlersOptions` and `RegisteredHandlers`

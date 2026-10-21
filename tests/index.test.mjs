@@ -4,6 +4,7 @@ import {
   createLogger,
   safeSerialize,
   path,
+  createPathHelpers,
   pathUrl,
   getCurrentDirname,
   getCurrentFilename,
@@ -27,35 +28,24 @@ import {
 import snowflakeDefault, * as snowflakePackage from "@eliware/snowflake";
 import * as redactPackage from "@eliware/redact";
 import * as errorsPackage from "@eliware/errors";
+import * as logPackage from "@eliware/log";
+import * as pathPackage from "@eliware/path";
+import * as signalsPackage from "@eliware/signals";
 import * as commonPackage from "../src/index.mjs";
 
 test("re-exports the exact dependency API surface", () => {
-  expect(Object.keys(commonPackage).sort()).toEqual([
-    "constants",
-    "createLogger",
-    "createPolicy",
-    "createSnowflakeGenerator",
-    "defaultEvents",
-    "defaultPolicy",
-    "fileUrlToPath",
-    "fs",
-    "generate",
-    "getCurrentDirname",
-    "getCurrentFilename",
-    "log",
-    "path",
-    "pathUrl",
-    "redactHeaders",
-    "redactText",
-    "redactValue",
-    "registerHandlers",
-    "registerSignals",
-    "relativePath",
-    "replaceLiteralSecret",
-    "resolvePath",
-    "safeSerialize",
-    "snowflake",
-  ]);
+  const dependencyExports = [
+    errorsPackage,
+    logPackage,
+    pathPackage,
+    redactPackage,
+    signalsPackage,
+    snowflakePackage,
+  ].flatMap((dependency) => Object.keys(dependency).filter((key) => key !== "default"));
+
+  expect(Object.keys(commonPackage).sort()).toEqual(
+    [...new Set(["fs", ...dependencyExports])].sort(),
+  );
 });
 
 test("exports the public API", () => {
@@ -65,6 +55,7 @@ test("exports the public API", () => {
     createLogger: typeof createLogger,
     safeSerialize: typeof safeSerialize,
     path: typeof path,
+    createPathHelpers: typeof createPathHelpers,
     pathUrl: typeof pathUrl,
     getCurrentDirname: typeof getCurrentDirname,
     getCurrentFilename: typeof getCurrentFilename,
@@ -82,6 +73,7 @@ test("exports the public API", () => {
     createLogger: "function",
     safeSerialize: "function",
     path: "function",
+    createPathHelpers: "function",
     pathUrl: "function",
     getCurrentDirname: "function",
     getCurrentFilename: "function",
@@ -96,6 +88,17 @@ test("exports the public API", () => {
   });
 
   expect({
+    createLogger: createLogger === logPackage.createLogger,
+    log: log === logPackage.log,
+    safeSerializeLog: safeSerialize === logPackage.safeSerialize,
+    path: path === pathPackage.path,
+    createPathHelpers: createPathHelpers === pathPackage.createPathHelpers,
+    pathUrl: pathUrl === pathPackage.pathUrl,
+    getCurrentDirname: getCurrentDirname === pathPackage.getCurrentDirname,
+    getCurrentFilename: getCurrentFilename === pathPackage.getCurrentFilename,
+    resolvePath: resolvePath === pathPackage.resolvePath,
+    relativePath: relativePath === pathPackage.relativePath,
+    fileUrlToPath: fileUrlToPath === pathPackage.fileUrlToPath,
     snowflake: snowflake === snowflakeDefault,
     generate: generate === snowflakePackage.generate,
     createSnowflakeGenerator:
@@ -110,7 +113,20 @@ test("exports the public API", () => {
     replaceLiteralSecret: replaceLiteralSecret === redactPackage.replaceLiteralSecret,
     redactSafeSerialize: safeSerialize === redactPackage.safeSerialize,
     errorsDefaultEvents: defaultEvents === errorsPackage.defaultEvents,
+    registerHandlers: registerHandlers === errorsPackage.registerHandlers,
+    registerSignals: registerSignals === signalsPackage.registerSignals,
   }).toEqual({
+    createLogger: true,
+    log: true,
+    safeSerializeLog: true,
+    path: true,
+    createPathHelpers: true,
+    pathUrl: true,
+    getCurrentDirname: true,
+    getCurrentFilename: true,
+    resolvePath: true,
+    relativePath: true,
+    fileUrlToPath: true,
     snowflake: true,
     generate: true,
     createSnowflakeGenerator: true,
@@ -124,6 +140,8 @@ test("exports the public API", () => {
     replaceLiteralSecret: true,
     redactSafeSerialize: true,
     errorsDefaultEvents: true,
+    registerHandlers: true,
+    registerSignals: true,
   });
 });
 

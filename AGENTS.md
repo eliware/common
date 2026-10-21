@@ -2,13 +2,21 @@
 
 ## Project
 
+Maintain `@eliware/common` for shared Eliware APIs.
+
 ## Scope and boundaries
 
 Keep requirements in their authoritative specifications.
 
 ## Layout
 
+Put runtime modules and declarations in `src/`.
+Put one matching test in `tests/` for each runtime module.
+
 ## Development
+
+Use native ESM.
+Export public APIs from `src/index.mjs` and types from `src/index.d.ts`.
 
 ## Validation
 
@@ -21,7 +29,12 @@ Run npm run format:check to check formatting.
 
 ## Security
 
+Keep secrets, credentials, private data, and machine paths out of tracked files.
+
 ## Changes
+
+Describe user-visible changes in `RELEASE_NOTES.md`.
+Keep release notes accurate.
 
 ## Library
 
@@ -32,3 +45,7 @@ Prevent repeated full-suite runs during development.
 Run the full `npm test` suite for final validation before a commit, milestone, or release.
 
 ## npm publication
+
+Set the package version in `package.json`.
+Use the Eliware Operations publication checklist.
+Do not publish without required approval.

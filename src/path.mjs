@@ -1,5 +1,6 @@
 import {
   path,
+  createPathHelpers,
   pathUrl,
   getCurrentDirname,
   getCurrentFilename,
@@ -10,6 +11,7 @@ import {
 
 export {
   path,
+  createPathHelpers,
   pathUrl,
   getCurrentDirname,
   getCurrentFilename,

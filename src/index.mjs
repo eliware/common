@@ -2,6 +2,7 @@ export { default as fs } from "./fs.mjs";
 export { default as log, createLogger, safeSerialize } from "./log.mjs";
 export {
   default as path,
+  createPathHelpers,
   pathUrl,
   getCurrentDirname,
   getCurrentFilename,

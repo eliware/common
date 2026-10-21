@@ -4,6 +4,7 @@ import type * as Log from "@eliware/log";
 import type * as Redact from "@eliware/redact";
 import type * as Signals from "@eliware/signals";
 import type * as Snowflake from "@eliware/snowflake";
+import type * as Path from "@eliware/path";
 
 type Equal<Left, Right> =
   (<Value>() => Value extends Left ? 1 : 2) extends <Value>() => Value extends Right ? 1 : 2
@@ -12,6 +13,9 @@ type Equal<Left, Right> =
 type Expect<Value extends true> = Value;
 
 export type DependencyTypeContract = [
+  Expect<Equal<Common.PathLogger, Path.PathLogger>>,
+  Expect<Equal<Common.PathHelpersOptions, Path.PathHelpersOptions>>,
+  Expect<Equal<Common.PathHelpers, Path.PathHelpers>>,
   Expect<Equal<Common.LoggerWithConfiguredLevels, Log.LoggerWithConfiguredLevels>>,
   Expect<Equal<Common.RedactionOptions, Log.RedactionOptions>>,
   Expect<Equal<Common.SafeSerializedValue, Log.SafeSerializedValue>>,

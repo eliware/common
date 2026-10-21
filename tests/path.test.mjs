@@ -1,5 +1,6 @@
 import { pathToFileURL } from "node:url";
 import path, {
+  createPathHelpers,
   pathUrl,
   getCurrentDirname,
   getCurrentFilename,
@@ -17,4 +18,20 @@ test("exports path helpers", () => {
   expect(resolvePath(import.meta, "file")).toContain("file");
   expect(relativePath(import.meta, "file")).toBe("file");
   expect(fileUrlToPath(pathToFileURL(filePath))).toBe(filePath);
+});
+
+test("creates path helpers that record operation results", () => {
+  const records = [];
+  const helpers = createPathHelpers({ logger: { log: (record) => records.push(record) } });
+
+  expect(helpers.path(import.meta, "nested", "file")).toContain("nested");
+  expect(records).toHaveLength(1);
+  expect(records[0]).toMatchObject({
+    level: "debug",
+    message: "Path operation completed",
+    operation: "path",
+    inputType: "import-meta",
+    segmentCount: 2,
+    resultType: "string",
+  });
 });
