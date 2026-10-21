@@ -1,11 +1,7 @@
 import * as fs from "fs";
 export { fs };
-export { createLogger, default as log, safeSerialize } from "@eliware/log";
-export type {
-  LoggerWithConfiguredLevels,
-  RedactionOptions,
-  SafeSerializedValue,
-} from "@eliware/log";
+export { createLogger, default as log, safeSerialize } from "./log.mjs";
+export type { LoggerWithConfiguredLevels, RedactionOptions, SafeSerializedValue } from "./log.mjs";
 export {
   path,
   createPathHelpers,
@@ -15,15 +11,15 @@ export {
   resolvePath,
   relativePath,
   fileUrlToPath,
-} from "@eliware/path";
-export type { PathLogger, PathHelpersOptions, PathHelpers } from "@eliware/path";
+} from "./path.mjs";
+export type { PathLogger, PathHelpersOptions, PathHelpers } from "./path.mjs";
 export {
   createSnowflakeGenerator,
   generate,
   default as snowflake,
   constants,
-} from "@eliware/snowflake";
-export type { SnowflakeGeneratorOptions, SnowflakeConstants } from "@eliware/snowflake";
+} from "./snowflake.mjs";
+export type { SnowflakeGeneratorOptions, SnowflakeConstants } from "./snowflake.mjs";
 export {
   createPolicy,
   defaultPolicy,
@@ -38,8 +34,8 @@ export type {
   StructuredRedactionOptions,
   TextRedactionOptions,
 } from "@eliware/redact";
-export { default as registerHandlers } from "@eliware/errors";
-export { defaultEvents } from "@eliware/errors";
+export { default as registerHandlers } from "./errors.mjs";
+export { defaultEvents } from "./errors.mjs";
 export { default as registerSignals } from "@eliware/signals";
 export type {
   Logger,
@@ -48,7 +44,7 @@ export type {
   ProcessLike,
   RegisterHandlersOptions,
   RegisteredHandlers,
-} from "@eliware/errors";
+} from "./errors.mjs";
 export type {
   NodeSignal,
   ProcessLike as SignalsProcessLike,

@@ -13,6 +13,7 @@
 - Aligned package metadata, specifications, CI, npm publication, and Knit workflows with convention version 14.
 - Expanded and corrected the API, setup, usage, package, and troubleshooting guides.
 - Simplified `README.md` and `AGENTS.md` while keeping the content required by repository conventions.
+- Made the public declarations pass strict TypeScript consumer checks without `skipLibCheck`.
 
 ### Breaking changes
 
