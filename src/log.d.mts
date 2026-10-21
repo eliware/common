@@ -1,13 +1,5 @@
-import type { SerializationOptions } from "@eliware/redact";
-
-export type LoggerWithConfiguredLevels = import("winston").Logger & {
-  [level: string]: unknown;
-};
-
-export type SafeSerializedValue =
+type SafeSerializedValue =
   null | boolean | number | string | SafeSerializedValue[] | { [key: string]: SafeSerializedValue };
-
-export type RedactionOptions = SerializationOptions;
 
 export declare function createLogger(options?: {
   level?: string;
@@ -24,7 +16,7 @@ export declare function createLogger(options?: {
 
 export declare function safeSerialize(
   value: unknown,
-  options?: RedactionOptions,
+  options?: import("@eliware/redact").SerializationOptions,
 ): SafeSerializedValue;
 
 export declare const log: import("winston").Logger & {
@@ -32,6 +24,6 @@ export declare const log: import("winston").Logger & {
   info(message: unknown, meta?: unknown, ...args: unknown[]): import("winston").Logger;
   warn(message: unknown, meta?: unknown, ...args: unknown[]): import("winston").Logger;
   error(message: unknown, meta?: unknown, ...args: unknown[]): import("winston").Logger;
-} & LoggerWithConfiguredLevels;
+} & { [level: string]: unknown };
 
 export default log;

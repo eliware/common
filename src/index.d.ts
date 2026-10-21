@@ -1,7 +1,6 @@
 import * as fs from "fs";
 export { fs };
 export { createLogger, default as log, safeSerialize } from "./log.mjs";
-export type { LoggerWithConfiguredLevels, RedactionOptions, SafeSerializedValue } from "./log.mjs";
 export {
   path,
   createPathHelpers,

@@ -13,7 +13,6 @@ import {
   snowflake,
 } from "@eliware/common";
 import type {
-  LoggerWithConfiguredLevels,
   NodeSignal,
   PathHelpers,
   PathHelpersOptions,
@@ -21,22 +20,21 @@ import type {
   ProcessEvent,
   ProcessLike,
   ProcessListener,
-  RedactionOptions,
   RedactionPolicy,
   RegisterHandlersOptions,
   RegisterSignalsOptions,
   RegisteredHandlers,
-  SafeSerializedValue,
   SignalsLogger,
   SignalsProcessLike,
   SignalsRegistration,
+  SerializationOptions,
   SnowflakeConstants,
   SnowflakeGeneratorOptions,
   StructuredRedactionOptions,
   TextRedactionOptions,
 } from "@eliware/common";
 
-const logger: LoggerWithConfiguredLevels = log;
+const logger = log;
 const configuredLogger = createLogger();
 const pathLogger: PathLogger = logger;
 const helperOptions: PathHelpersOptions = { logger: pathLogger };
@@ -48,7 +46,7 @@ const processLike: ProcessLike = process;
 const signalsOptions: RegisterSignalsOptions = {};
 const signalsProcess: SignalsProcessLike = process;
 const signalsLogger: SignalsLogger = logger;
-const redactionOptions: RedactionOptions = {};
+const redactionOptions: SerializationOptions = {};
 const policy: RedactionPolicy = {};
 const structuredOptions: StructuredRedactionOptions = {};
 const textOptions: TextRedactionOptions = {};
@@ -62,7 +60,7 @@ const registration: SignalsRegistration = {
   getShuttingDown: () => false,
   removeHandlers() {},
 };
-const serialized: SafeSerializedValue = safeSerialize({ event }, redactionOptions);
+const serialized: unknown = safeSerialize({ event }, redactionOptions);
 
 void [
   fileUrlToPath,

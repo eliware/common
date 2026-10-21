@@ -23,7 +23,7 @@ export declare function relativePath(metaOrDir: ImportMeta | string, ...segments
 export declare function fileUrlToPath(fileUrl: string | URL): string;
 
 /** A logger that accepts structured Winston-style records. */
-export type PathLogger = Pick<import("./log.mjs").LoggerWithConfiguredLevels, "log">;
+export type PathLogger = Pick<import("winston").Logger, "log">;
 
 /** Options for path helpers with an injected logger. */
 export interface PathHelpersOptions {

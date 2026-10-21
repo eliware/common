@@ -122,13 +122,13 @@ Read the [signals API docs](https://github.com/eliware/signals/blob/main/docs/ap
 
 Call `createSnowflakeGenerator(options?)` to make a generator. Each call returns a decimal string.
 
-| Option      | Type                         | Default            | Purpose                                           |
-| ----------- | ---------------------------- | ------------------ | ------------------------------------------------- |
-| `epoch`     | `number` or `bigint`         | `365662380000n`    | Set the epoch in Unix milliseconds.               |
-| `workerId`  | `number` or `bigint`         | `0`                | Set a worker value from 0 through 31.             |
-| `processId` | `number` or `bigint`         | `process.pid % 32` | Set a process value from 0 through 31.            |
-| `now`       | function                     | `Date.now`         | Set a clock that returns Unix milliseconds.       |
-| `logger`    | `LoggerWithConfiguredLevels` | None               | Record generator events with a structured logger. |
+| Option      | Type                 | Default            | Purpose                                           |
+| ----------- | -------------------- | ------------------ | ------------------------------------------------- |
+| `epoch`     | `number` or `bigint` | `365662380000n`    | Set the epoch in Unix milliseconds.               |
+| `workerId`  | `number` or `bigint` | `0`                | Set a worker value from 0 through 31.             |
+| `processId` | `number` or `bigint` | `process.pid % 32` | Set a process value from 0 through 31.            |
+| `now`       | function             | `Date.now`         | Set a clock that returns Unix milliseconds.       |
+| `logger`    | Winston `Logger`     | None               | Record generator events with a structured logger. |
 
 Use one epoch for all generators in one application. Give each active generator a unique worker and process ID pair.
 Keep each ID as a string. An ID uses a 42-bit timestamp, 5-bit worker value, 5-bit process value, and 12-bit sequence.
@@ -157,7 +157,6 @@ Read the [Snowflake usage guide](https://github.com/eliware/snowflake/blob/main/
 The package exports these types:
 
 - `Logger`
-- `LoggerWithConfiguredLevels`, `SafeSerializedValue`, and `RedactionOptions`
 - `PathLogger`, `PathHelpersOptions`, and `PathHelpers`
 - `NodeSignal`, `SignalsLogger`, and `SignalsProcessLike`
 - `ProcessEvent`, `ProcessListener`, and `ProcessLike`

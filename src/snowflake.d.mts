@@ -1,14 +1,10 @@
-import type { LoggerWithConfiguredLevels } from "./log.mjs";
-
 export interface SnowflakeGeneratorOptions {
   epoch?: number | bigint;
   workerId?: number | bigint;
   processId?: number | bigint;
   now?: () => number | bigint;
-  logger?: LoggerWithConfiguredLevels;
+  logger?: import("winston").Logger;
 }
-
-export type { LoggerWithConfiguredLevels } from "./log.mjs";
 
 export interface SnowflakeConstants {
   readonly epoch: bigint;
