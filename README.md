@@ -23,7 +23,8 @@ A shared ESM compatibility package for Eliware filesystem, path, logging, error,
 
 ## Features
 
-Import shared Eliware APIs and redaction tools from `@eliware/common`.
+Eliware maintains this shared package for common Node.js APIs.
+It re-exports filesystem, path, logger, error, signal, redaction, and Snowflake APIs.
 
 ## Requirements
 
@@ -63,7 +64,7 @@ Read the [API reference](docs/api.md).
 
 ## Packaging
 
-Use native ESM. Read the [package guide](docs/package.md).
+Read the [package guide](docs/package.md).
 
 ## Examples
 

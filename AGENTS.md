@@ -2,38 +2,36 @@
 
 ## Project
 
-Maintain `@eliware/common` for shared Eliware APIs.
+See `README.md` for the repository purpose, owner, scope, and boundaries.
 
 ## Scope and boundaries
 
-Keep requirements in their authoritative specifications.
+Keep repository requirements in `specs/directives.yaml`.
 
 ## Layout
 
-Put runtime modules and declarations in `src/`.
-Put one matching test in `tests/` for each runtime module.
+Use `README.md` and `specs/README.md` to find maintained files.
 
 ## Development
 
-Use native ESM.
-Export public APIs from `src/index.mjs` and types from `src/index.d.ts`.
+Give each source and test module one cohesive purpose.
 
 ## Validation
 
 Use Node.js 26 or later and native ESM for maintained JavaScript modules.
-Run npm test for aggregate validation.
-Run npm run lint for lint checks.
-Run npm run audit for dependency checks.
-Run npm run format to format files.
-Run npm run format:check to check formatting.
+Run `npm test` for aggregate validation.
+Run `npm run lint` for lint checks.
+Run `npm run audit` for dependency checks.
+Run `npm run format` to format files.
+Run `npm run format:check` to check formatting.
 
 ## Security
 
-Keep secrets, credentials, private data, and machine paths out of tracked files.
+Keep credentials, secret values, private data, and runtime state out of Git.
 
 ## Changes
 
-Describe user-visible changes in `RELEASE_NOTES.md`.
+Describe each user-visible change in `RELEASE_NOTES.md`.
 Keep release notes accurate.
 
 ## Library
@@ -46,6 +44,5 @@ Run the full `npm test` suite for final validation before a commit, milestone, o
 
 ## npm publication
 
-Set the package version in `package.json`.
-Use the Eliware Operations publication checklist.
-Do not publish without required approval.
+Run `npm run pack` to check package contents.
+Publish only after approved release steps.
