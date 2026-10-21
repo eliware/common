@@ -1,5 +1,24 @@
 # Release Notes
 
+## 15.0.0 — 2026-10-21
+
+### Changed
+
+- Upgrade all Eliware runtime and test dependencies to major version 15.
+- Align package metadata and repository specifications with Convention 15.
+- Export each dependency API from its package. Export `safeSerialize` and other Redact APIs directly from `@eliware/redact`.
+- Restore Log types after `@eliware/log` fixed its public declarations. Remove the internal Log wrapper.
+- Update the guides to describe the version 15 APIs and types.
+
+### Added
+
+- Check every runtime dependency export against the Common package entry point.
+- Check all retained public types in a strict packed-package consumer.
+
+### Breaking changes
+
+- Require major version 15 of the Eliware runtime dependencies.
+
 ## 14.0.0 — 2026-10-21
 
 ### Added

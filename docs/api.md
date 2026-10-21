@@ -37,11 +37,10 @@ Read the [path package docs](https://github.com/eliware/path/tree/main/docs) for
 
 ## Logger APIs
 
-| Export          | Call                                            | Result                                           |
-| --------------- | ----------------------------------------------- | ------------------------------------------------ |
-| `log`           | `log.debug/info/warn/error(message, metadata?)` | Use the shared default logger.                   |
-| `createLogger`  | `createLogger(options?)`                        | Create a logger instance.                        |
-| `safeSerialize` | `safeSerialize(value, options?)`                | Return JSON-safe data with redaction and limits. |
+| Export         | Call                                            | Result                         |
+| -------------- | ----------------------------------------------- | ------------------------------ |
+| `log`          | `log.debug/info/warn/error(message, metadata?)` | Use the shared default logger. |
+| `createLogger` | `createLogger(options?)`                        | Create a logger instance.      |
 
 `createLogger` accepts `level`, `transports`, `format`, `timestamp`, and `keys` options.
 Use `format: "text"` or `format: "json"`. The default level is `info`.
@@ -54,6 +53,16 @@ Read the [logger package docs](https://github.com/eliware/log/tree/main/docs) fo
 
 ## Redaction APIs
 
+| Export                 | Call                                           | Result                                          |
+| ---------------------- | ---------------------------------------------- | ----------------------------------------------- |
+| `createPolicy`         | `createPolicy(options?)`                       | Create a frozen redaction policy.               |
+| `defaultPolicy`        | value                                          | Provide the default sensitive names and marker. |
+| `redactValue`          | `redactValue(value, options?)`                 | Return a redacted copy of structured data.      |
+| `redactHeaders`        | `redactHeaders(headers, options?)`             | Return redacted header data.                    |
+| `redactText`           | `redactText(value, options?)`                  | Return text with secret values replaced.        |
+| `replaceLiteralSecret` | `replaceLiteralSecret(value, secret, marker?)` | Replace each exact secret occurrence.           |
+| `safeSerialize`        | `safeSerialize(value, options?)`               | Return bounded data for logs and diagnostics.   |
+
 `defaultPolicy` provides the default sensitive key names and marker.
 Call `createPolicy(options?)` to make a frozen policy with custom key names or markers.
 Call `redactValue(value, options?)` to return a redacted copy of an object or array.
@@ -65,13 +74,15 @@ Policy options include `keys`, `redactKeys`, `marker`, and `circularMarker`.
 Structured values also support `maxDepth`, `maxKeys`, and `maxArray` limits.
 Text also supports `secrets` and the `maxOutputLength` limit.
 
-The default marker is `[REDACTED]`. The default text limit is 10,000 characters.
+The default marker is `[REDACTED]`. The default text output limit is 10,000 characters.
+Redact limits input text before it applies the redaction rules.
 `redactText` detects authorization values, secret assignments, provider tokens, JWT-like strings, and key blocks.
 
 `redactValue` returns a copy and does not change its input.
 `redactHeaders` keeps the input shape for objects and pair arrays. It returns a lowercase object for entries objects.
+For arrays, `maxKeys` limits non-sensitive index and property values. Redact marks sensitive properties without reading their values.
 
-The `safeSerialize` export in Logger APIs matches the `safeSerialize` export from `@eliware/redact`.
+Common exports `safeSerialize` directly from `@eliware/redact`.
 
 Read the [Redact API guide](https://github.com/eliware/redact/blob/main/docs/api.md) for full rules and limits.
 
@@ -122,13 +133,13 @@ Read the [signals API docs](https://github.com/eliware/signals/blob/main/docs/ap
 
 Call `createSnowflakeGenerator(options?)` to make a generator. Each call returns a decimal string.
 
-| Option      | Type                 | Default            | Purpose                                           |
-| ----------- | -------------------- | ------------------ | ------------------------------------------------- |
-| `epoch`     | `number` or `bigint` | `365662380000n`    | Set the epoch in Unix milliseconds.               |
-| `workerId`  | `number` or `bigint` | `0`                | Set a worker value from 0 through 31.             |
-| `processId` | `number` or `bigint` | `process.pid % 32` | Set a process value from 0 through 31.            |
-| `now`       | function             | `Date.now`         | Set a clock that returns Unix milliseconds.       |
-| `logger`    | Winston `Logger`     | None               | Record generator events with a structured logger. |
+| Option      | Type                         | Default            | Purpose                                           |
+| ----------- | ---------------------------- | ------------------ | ------------------------------------------------- |
+| `epoch`     | `number` or `bigint`         | `365662380000n`    | Set the epoch in Unix milliseconds.               |
+| `workerId`  | `number` or `bigint`         | `0`                | Set a worker value from 0 through 31.             |
+| `processId` | `number` or `bigint`         | `process.pid % 32` | Set a process value from 0 through 31.            |
+| `now`       | function                     | `Date.now`         | Set a clock that returns Unix milliseconds.       |
+| `logger`    | `LoggerWithConfiguredLevels` | None               | Record generator events with a structured logger. |
 
 Use one epoch for all generators in one application. Give each active generator a unique worker and process ID pair.
 Keep each ID as a string. An ID uses a 42-bit timestamp, 5-bit worker value, 5-bit process value, and 12-bit sequence.
@@ -157,6 +168,7 @@ Read the [Snowflake usage guide](https://github.com/eliware/snowflake/blob/main/
 The package exports these types:
 
 - `Logger`
+- `LoggerWithConfiguredLevels`, `RedactionOptions`, and `SafeSerializedValue`
 - `PathLogger`, `PathHelpersOptions`, and `PathHelpers`
 - `NodeSignal`, `SignalsLogger`, and `SignalsProcessLike`
 - `ProcessEvent`, `ProcessListener`, and `ProcessLike`

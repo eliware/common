@@ -1,5 +1,5 @@
 export { default as fs } from "./fs.mjs";
-export { default as log, createLogger, safeSerialize } from "./log.mjs";
+export { default as log, createLogger } from "@eliware/log";
 export {
   default as path,
   createPathHelpers,
@@ -23,6 +23,7 @@ export {
   redactHeaders,
   redactText,
   replaceLiteralSecret,
+  safeSerialize,
 } from "@eliware/redact";
 export { defaultEvents, default as registerHandlers } from "./errors.mjs";
 export { default as registerSignals } from "./signals.mjs";

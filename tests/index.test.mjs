@@ -90,7 +90,7 @@ test("exports the public API", () => {
   expect({
     createLogger: createLogger === logPackage.createLogger,
     log: log === logPackage.log,
-    safeSerializeLog: safeSerialize === logPackage.safeSerialize,
+    safeSerializeRedact: safeSerialize === redactPackage.safeSerialize,
     path: path === pathPackage.path,
     createPathHelpers: createPathHelpers === pathPackage.createPathHelpers,
     pathUrl: pathUrl === pathPackage.pathUrl,
@@ -118,7 +118,7 @@ test("exports the public API", () => {
   }).toEqual({
     createLogger: true,
     log: true,
-    safeSerializeLog: true,
+    safeSerializeRedact: true,
     path: true,
     createPathHelpers: true,
     pathUrl: true,

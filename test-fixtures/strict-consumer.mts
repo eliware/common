@@ -1,18 +1,33 @@
 import {
+  createPolicy,
   createLogger,
   createPathHelpers,
   createSnowflakeGenerator,
   constants,
+  defaultPolicy,
   defaultEvents,
+  fs,
+  generate,
   fileUrlToPath,
+  getCurrentDirname,
+  getCurrentFilename,
   log,
   path,
+  pathUrl,
+  redactHeaders,
+  redactText,
+  redactValue,
   registerHandlers,
   registerSignals,
+  relativePath,
+  replaceLiteralSecret,
+  resolvePath,
   safeSerialize,
   snowflake,
 } from "@eliware/common";
 import type {
+  Logger,
+  LoggerWithConfiguredLevels,
   NodeSignal,
   PathHelpers,
   PathHelpersOptions,
@@ -20,10 +35,12 @@ import type {
   ProcessEvent,
   ProcessLike,
   ProcessListener,
+  RedactionOptions,
   RedactionPolicy,
   RegisterHandlersOptions,
   RegisterSignalsOptions,
   RegisteredHandlers,
+  SafeSerializedValue,
   SignalsLogger,
   SignalsProcessLike,
   SignalsRegistration,
@@ -36,6 +53,7 @@ import type {
 
 const logger = log;
 const configuredLogger = createLogger();
+const configuredLevels: LoggerWithConfiguredLevels = log;
 const pathLogger: PathLogger = logger;
 const helperOptions: PathHelpersOptions = { logger: pathLogger };
 const helpers: PathHelpers = createPathHelpers(helperOptions);
@@ -47,10 +65,13 @@ const signalsOptions: RegisterSignalsOptions = {};
 const signalsProcess: SignalsProcessLike = process;
 const signalsLogger: SignalsLogger = logger;
 const redactionOptions: SerializationOptions = {};
+const logRedactionOptions: RedactionOptions = redactionOptions;
 const policy: RedactionPolicy = {};
 const structuredOptions: StructuredRedactionOptions = {};
 const textOptions: TextRedactionOptions = {};
 const event: ProcessEvent = defaultEvents[0];
+const safeSerializedValue: SafeSerializedValue = { message: "safe" };
+const errorLogger: Logger = { error() {}, warn() {}, debug() {} };
 const listener: ProcessListener = () => {};
 const registered: RegisteredHandlers = { removed: false, removeHandlers() {} };
 const signal: NodeSignal = "SIGTERM";
@@ -64,6 +85,7 @@ const serialized: unknown = safeSerialize({ event }, redactionOptions);
 
 void [
   fileUrlToPath,
+  fs,
   helpers,
   log,
   path,
@@ -86,4 +108,20 @@ void [
   logger,
   configuredLogger,
   createSnowflakeGenerator,
+  createPolicy,
+  defaultPolicy,
+  redactHeaders,
+  redactText,
+  redactValue,
+  replaceLiteralSecret,
+  generate,
+  getCurrentDirname,
+  getCurrentFilename,
+  pathUrl,
+  relativePath,
+  resolvePath,
+  configuredLevels,
+  safeSerializedValue,
+  logRedactionOptions,
+  errorLogger,
 ];

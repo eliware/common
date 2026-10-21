@@ -14,7 +14,7 @@ The package does not provide a CommonJS entry point.
 
 ## Runtime dependencies
 
-The package uses major version 14 of these Eliware packages:
+The package uses major version 15 of these Eliware packages:
 
 - `@eliware/errors`
 - `@eliware/log`
