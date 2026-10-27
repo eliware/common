@@ -1,6 +1,6 @@
 {
   "name": "@eliware/common",
-  "version": "15.0.0",
+  "version": "15.0.1",
   "type": "module",
   "description": "A shared ESM compatibility package for Eliware filesystem, path, logging, error, and signal APIs.",
   "keywords": [
@@ -44,15 +44,15 @@
     "node": ">=26"
   },
   "dependencies": {
-    "@eliware/errors": "^15.0.0",
-    "@eliware/log": "^15.0.0",
-    "@eliware/path": "^15.0.0",
-    "@eliware/redact": "^15.0.0",
-    "@eliware/signals": "^15.0.0",
-    "@eliware/snowflake": "^15.0.0"
+    "@eliware/errors": "^15.0.1",
+    "@eliware/log": "^15.0.1",
+    "@eliware/path": "^15.0.1",
+    "@eliware/redact": "^15.0.1",
+    "@eliware/signals": "^15.0.1",
+    "@eliware/snowflake": "^15.0.1"
   },
   "devDependencies": {
-    "@eliware/test": "^15.0.0",
+    "@eliware/test": "^15.0.1",
     "typescript": "^7.0.2"
   },
   "jest": {

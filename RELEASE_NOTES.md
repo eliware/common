@@ -1,5 +1,13 @@
 # Release Notes
 
+## 15.0.1 — 2026-10-26
+
+### Changed
+
+- Set the Common package version and each Eliware runtime dependency to 15.0.1.
+- Set the Eliware test dependency to 15.0.1.
+- Refresh the lockfile with the latest compatible transitive dependencies.
+
 ## 15.0.0 — 2026-10-21
 
 ### Changed
